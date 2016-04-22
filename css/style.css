@@ -1,13 +1,12 @@
-body {
+.container {
 	width: 100%;
 	height: auto;
-	background-image: url('../images/background.jpg') no-repeat center center fixed;
+	background: url('../images/dust.png') no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	background-size: cover;
 	-o-background-size: cover;
 }
-
 
 header div {
 	background-image: linear-gradient(to right, burlywood 0%, #FFFFFF 100%);
@@ -16,14 +15,26 @@ header div {
 	text-align: center;
 }
 
-h2 {
+.basket button {
 	text-align: center;
+	margin-top: auto;
 }
 
-.description {
-	color: black; 
-	text-shadow: 0 0 10px rgba(0, 0, 0, 0.75); 
-	display: none; 
+img {
+	width: 100%;
+}
+
+.carousel-indicators li {	
+	background-color: #999;
+	background-color: rgba(70,70,70,.25);
+}
+
+.carousel-indicators .active {
+	background-color: #444;
+}
+
+h2 {
+	text-align: center;
 }
 
 .jumbotron {
@@ -34,9 +45,7 @@ li {
 	list-style: none;
 }
 
-.basket_list ul li span{
+.basket_list ul li span {
 	vertical-align: middle;
 	text-align: center;
 }
-
-

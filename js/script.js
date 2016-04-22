@@ -1,6 +1,6 @@
 $(function () {
-
-
+	
+	
 	$('#checkout').hide(); // === We hide some elements 
 	$('#clear').hide();
 	$('.basket_list p').hide();
@@ -138,22 +138,10 @@ $(function () {
 		}
 
 		totalPrice = numberMilk * priceMilk + numberBread * priceBread + numberButter * priceButter;
-
-
-		/*alert(totalPrice);
-		alert(discountBreadNumber);
-		alert(discountMilkNumber);*/
-
 		priceDiscountedBread = numberBread * priceBread - discountBreadNumber * (priceBread / 2);
 		priceDiscountedMilk = priceMilk * numberMilk - priceMilk * discountMilkNumber;
-
 		totalDiscountPrice = priceDiscountedBread + priceDiscountedMilk + numberButter * priceButter;
-
-		//alert(totalDiscountPrice);
-
 		totalSavings = totalPrice - totalDiscountPrice;
-
-		//alert('Today, you saved: ' + totalSavings + 'GBP by shoping with us');
 
 
 		alert(numberMilk);
@@ -180,10 +168,10 @@ $(function () {
 	});
 
 	$(".basket ul li button.delete").live("click", function () {
-		if ($('.basket ul li').size() === 1){ // Check if it is the last item
+		if ($('.basket ul li').size() === 1){ // Check if it is the only product and if so empty the basket
 			emptyBasket();
 		} else {
-			$(this).closest("li").remove();	  // Or remove only this
+			$(this).closest("li").remove();	  // If not remove only this product
 		}
 	});
 

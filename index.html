@@ -22,9 +22,13 @@
 	<![endif]-->
 </head>
 
+<!-- Done by Arnaud bourdillon
+	=========================================================================================================== -->
+
 <body class="container">
 
-	<!-- HEADER -->
+	<!-- Header 
+	====================================================== -->
 
 	<header class="jumbotron row" id="theheader">
 		<div class="col-sm-12">
@@ -33,82 +37,100 @@
 		</div>
 	</header>
 
-	<!-- Carousel -->
+	<!-- Caroussel in a container-fluid for all width
+	==================================================================================== -->
 
-	<!-- Sections -->
-	<div class="jumbotron row">
-	<section id="product" class="col-sm-7">
-		<h2> Available products</h2>
-		<hr>
-		<ul class="clear">
-			<li data-id="1" class="col-sm-4">
-				<a href="#">
-					<img class="img-responsive img-rounded" src="images/Milk.jpg" alt="Milk bottle">
-					<h3>Milk</h3>
-					<h4>1.15</h4>
-				</a>
-			</li>
-			<li data-id="2" class="col-sm-4">
-				<a href="#">
-					<img class="img-responsive img-rounded" src="images/Butter.jpg" alt="Butter">
-					<h3>Butter</h3>
-					<h4>0.80</h4>
-				</a>
-			</li>
-			<li data-id="3" class="col-sm-4">
-				<a href="#">
-					<img class="img-responsive img-rounded" src="images/Bread.jpg" alt="Bread">
-					<h3>Bread</h3>
-					<h4>1.00</h4>
-				</a>
-			</li>
-		</ul>
-	</section>
-
-	<aside id="sidebar" class="col-sm-5">
-		<h2> Your basket <span class="glyphicon glyphicon-shopping-cart pull-left"></span></h2>
-		<hr>
-		
-		<div class="basket row col-sm-12">
-			
-			<div class="basket_list col-sm-12">
-
-				<p class="col-sm-12">
-					<span class="col-sm-4"> Quantity </span>
-					<span class="col-sm-4"> Name </span>
-					<span class="col-sm-4"> &pound; </span>
-				</p>
-				
-				
-				<ul>
-				</ul>
-				
+	<div class="container">
+		<div id="carousel" class="carousel slide" data-ride="carousel">
+			<ol class="carousel-indicators">
+				<li data-target="#carousel" data-slide-to="0" class="active"></li>
+				<li data-target="#carousel" data-slide-to="1"></li>
+			</ol>
+			<div class="carousel-inner">
+				<div class="item active"><img class="img-responsive" src="images/bannerMilk2.png" alt="Banner milk">
+					<h1 class="jumbotron carousel-caption">Buy 3 milks get 1 for free !</h1>
+				</div>
+				<div class="item"><img class="img-responsive" src="images/bannerBread2.png" alt="Banner butter">
+					<h1 class="jumbotron carousel-caption">Buy 2 butter get one bread half price !</h1>
+				</div>
 			</div>
-			
-			<div class="row col-sm-12">
-			
-			<button type="submit" id="checkout" class="btn btn-sm btn-warning col-sm-offset-2 col-sm-3">Checkout</button>
-				<button type="reset" id="clear" class="btn btn-sm btn-danger col-sm-offset-2 col-sm-3 col-sm-offset-2">Clear</button>
-			
-			</div>
-			
+			<a class="left carousel-control" href="#carousel" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left"></span></a>
+			<a class="right carousel-control" href="#carousel" data-slide="next">
+				<span class="glyphicon glyphicon-chevron-right"></span></a>
 		</div>
-	</aside>
-	
-		<!-- Modal try -->
-		
-		<!-- End modal try -->
-		
-		
-		
-		
-		
-		
+	</div>
+
+
+	<div class="jumbotron row">
+
+		<!-- Section: Available products
+		======================================================================================================= -->
+
+		<section id="product" class="col-sm-7">
+			<h2> Available products</h2>
+			<hr>
+			<ul class="clear">
+				<li data-id="1" class="col-sm-4">
+					<a href="#">
+						<img class="img-responsive img-rounded" src="images/Milk.jpg" alt="Milk bottle">
+						<h3>Milk</h3>
+						<h4>1.15</h4>
+					</a>
+				</li>
+				<li data-id="2" class="col-sm-4">
+					<a href="#">
+						<img class="img-responsive img-rounded" src="images/Butter.jpg" alt="Butter">
+						<h3>Butter</h3>
+						<h4>0.80</h4>
+					</a>
+				</li>
+				<li data-id="3" class="col-sm-4">
+					<a href="#">
+						<img class="img-responsive img-rounded" src="images/Bread.jpg" alt="Bread">
+						<h3>Bread</h3>
+						<h4>1.00</h4>
+					</a>
+				</li>
+			</ul>
+		</section>
+
+		<!-- Aside: Basket
+		======================================================================================================= -->
+
+		<aside id="sidebar" class="col-sm-5">
+			<h2> Your basket <span class="glyphicon glyphicon-shopping-cart pull-left"></span></h2>
+			<hr>
+
+			<div class="basket row col-sm-12">
+				<div class="basket_list col-sm-12">
+					<p class="col-sm-12">
+						<span class="col-sm-4"> Quantity </span>
+						<span class="col-sm-4"> Name </span>
+						<span class="col-sm-4"> &pound; </span>
+					</p>
+
+					<ul>
+					</ul>
+				</div>
+
+				<div class="row col-sm-12">
+					<button type="submit" id="checkout" class="btn btn-sm btn-warning col-sm-offset-2 col-sm-3">Checkout</button>
+					<button type="reset" id="clear" class="btn btn-sm btn-danger col-sm-offset-2 col-sm-3 col-sm-offset-2">Clear</button>
+				</div>
+			</div>
+		</aside>
 		
 	</div>
-	
-	
-	
+
+		<!-- Modal on checkout button
+		======================================================================================================= -->
+
+		<!-- Section: reviews in real time (angular.js)
+		======================================================================================================= -->
+		
+		<!-- Footer: links
+		======================================================================================================= -->
 
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
