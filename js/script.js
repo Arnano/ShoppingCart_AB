@@ -1,6 +1,16 @@
 $(function () {
 	
 	
+	$('a').mouseover(function() {
+		$('h3', this).css("visibility","visible");
+		$('h4', this).css("visibility","visible");
+	});
+
+	$('a').mouseout(function() {
+		$('h3', this).css("visibility","hidden");
+		$('h4', this).css("visibility","hidden");
+	});
+	
 	$('#checkout').hide(); // === We hide some elements 
 	$('#clear').hide();
 	$('.basket_list p').hide();
@@ -62,8 +72,7 @@ $(function () {
 
 	function addBasket(basket, move) {
 
-		basket.find("ul").append('<li data-id="' + move.attr("data-id") + '" class="form-group row">' + '<div class="col-sm-4">' + '<input class="count form-control input-sm" value="1" type="number" min="1" step="1">' + '</div>' + '<span class="name col-sm-3">' + move.find("h3").html() + '</span>' + '<span class="price col-sm-3">' + move.find("h4").html() + '</span>'
-			//+ '<button class="delete btn btn-sm btn-danger pull-right">rem</button>'
+		basket.find("ul").append('<li data-id="' + move.attr("data-id") + '" class="form-group row">' + '<div class="col-sm-3">' + '<input class="count form-control input-sm" value="1" type="number" min="1" step="1">' + '</div>' + '<span class="name col-sm-5">' + move.find("h3").html() + '</span>' + '<span class="price col-sm-1">' + move.find("h4").html() + '</span>' + '<span class="col-sm-1">&pound;</span>' 
 			+ '<button class="delete pull-right"><span class="glyphicon glyphicon-remove" style="color:red"></span> </button>'
 		);
 
@@ -73,11 +82,6 @@ $(function () {
 			$('#clear').fadeIn('fast');
 			$('.basket_list p').fadeIn('fast');
 		}
-
-		/*if (typeof $('li[data-id="1"]') !== "undefined" || typeof $('li[data-id="2"]') !== "undefined" || typeof $('li[data-id="3"]') !== "undefined") {
-			$('#checkout').show();
-			$('#clear').show();
-		}*/
 
 	}
 

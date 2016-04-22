@@ -15,6 +15,28 @@ header div {
 	text-align: center;
 }
 
+a h3 {
+	position:relative;
+	bottom:65px;
+	left:0px;
+	visibility:hidden;
+	background:rgb(0, 0, 0);
+	background: rgba(0, 0, 0, 0.5);
+	color:#f3f3f3;
+	text-align: center;
+}
+
+a h4 {
+	position:relative;
+	bottom:75px;
+	left:0px;
+	visibility:hidden;
+	background:rgb(0, 0, 0);
+	background: rgba(0, 0, 0, 0.5);
+	color:#f3f3f3;
+	text-align: center; 
+}
+
 .basket button {
 	text-align: center;
 	margin-top: auto;
@@ -43,6 +65,7 @@ h2 {
 
 li {
 	list-style: none;
+	text-decoration: none;
 }
 
 .basket_list ul li span {
