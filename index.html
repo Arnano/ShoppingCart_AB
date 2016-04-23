@@ -44,11 +44,14 @@
 		<ol class="carousel-indicators">
 			<li data-target="#carousel" data-slide-to="0" class="active"></li>
 			<li data-target="#carousel" data-slide-to="1"></li>
+			<li data-target="#carousel" data-slide-to="2"></li>
 		</ol>
 		<div class="carousel-inner">
-			<div class="item active"><img src="images/bannerBread2.png" alt="Banner bread">
+			<div class="item active"><img src="images/Home.jpg" alt="Banner Milk">
+				<h1 class="jumbotron carousel-caption">Get your breakfast essentials !</h1></div>
+			<div class="item"><img src="images/bannerBread.jpg" alt="Banner bread">
 				<h1 class="jumbotron carousel-caption">Buy 2 butters get 1 bread half price !</h1></div>
-			<div class="item"><img src="images/bannerMilk2.png" alt="Banner Milk">
+			<div class="item"><img src="images/bannerMilk.jpg" alt="Banner Milk">
 				<h1 class="jumbotron carousel-caption">Buy 3 milks get 1 for free !</h1></div>
 		</div>
 		<a class="left carousel-control" href="#carousel" data-slide="prev">
@@ -149,13 +152,13 @@
 						
 						
 						
-					<table class="table table-hover" id="checkoutModal">
+					<table class="table table-hover table-responsive table-condensed" id="checkoutModal">
 						<thead>
 							<tr>
 								<th>Products</th>
 								<th>Quantity</th>
-								<th>Unit price (&pound;)</th>
-								<th>Sub total (&pound;)</th>
+								<th>Unit price</th>
+								<th>Sub total</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -165,13 +168,63 @@
 								<td></td>
 								<td></td>
 							</tr>
-							<tr data-id="bu">
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
+						</tbody>
+					</table>
+					
+					
+					<div class="alert alert-success fade in" id="successMilk">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						 You were eligible for a discount, 1 milk added to your basket for free !
+					</div>
+					<div class="alert alert-success fade in" id="successMilk2">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						You are enjoying our discount, each time you buy 3 milks you get one for free !
+					</div>
+					<div class="alert alert-danger fade in" id="failMilk">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						You are not enjoying our discounts, if you wish to buy 3 milks at least !
+					</div>
+					
+					<table class="table table-hover table-responsive" id="checkoutModal2">
+						<tbody>
+						<tr data-id="bu">
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						</tbody>
+					</table>
+					
+					<span> This is an aler text to show if the user has the discount or not</span>
+					
+					
+					<table class="table table-hover table-responsive" id="checkoutModal3">
+						<tbody>
+					<tr data-id="br">
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+						</tbody>
+					</table>
+					
+					<span> This is an aler text to show if the user has the discount or not</span>
+					
+					
+					
+					<table class="table table-hover table-responsive" id="checkoutTotal">
+						<thead>
+							<tr>
+								<th>Total (no discount)</th>
+								<th>Total (discount)</th>
+								<th>Amount due</th>
+								<th>Your savings</th>
 							</tr>
-							<tr data-id="br">
+						</thead>
+						<tbody>
+							<tr data-id="tot">
 								<td></td>
 								<td></td>
 								<td></td>
@@ -179,16 +232,9 @@
 							</tr>
 						</tbody>
 					</table>
-						
-				
-					<p id="checkoutTotal">
-						<span> Total without discount: </span><br>
-						<span> Total with applied discount: </span><br>
-						<span> By shopping with us today you saved: </span><br>
-					</p>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-success" data-dismiss="modal">Proceed to payment</button>
+					<button type="button" class="btn btn-success" data-dismiss="modal" id="reloaPage">Proceed to payment</button>
 					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
 				</div>
 			</div>
