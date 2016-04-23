@@ -1,54 +1,44 @@
 $(function () {
 	
 	
+	// === Display or hide on hovering the description of the products.
 	$('a').mouseover(function() {
-		$('h3', this).css("visibility","visible");
-		$('h4', this).css("visibility","visible");
+		$('h3', this).css("visibility", "visible");
+		$('h4', this).css("visibility", "visible");
 	});
 
 	$('a').mouseout(function() {
-		$('h3', this).css("visibility","hidden");
-		$('h4', this).css("visibility","hidden");
+		$('h3', this).css("visibility", "hidden");
+		$('h4', this).css("visibility", "hidden");
 	});
 	
-	$('#checkout').hide(); // === We hide some elements 
+	// === We initially hide the buttons for checkout and clear.
+	$('#checkout').hide();  
 	$('#clear').hide();
-	$('.basket_list p').hide();
 
-	// jQuery UI Draggable
+	// === We make the products draggable towards the basket on the right.
 	$("#product li").draggable({
-
-		// brings the item back to its place when dragging is over
 		revert: true,
 		containment: '.container',
 		snap: 'basket',
 		helper: 'clone',
-
-		// once the dragging starts, we decrease the opactiy of other items
-		// Appending a class as we do that with CSS
+		
+		
 		drag: function () {
 			$(this).addClass("active");
 			$(this).closest("#product").addClass("active");
 		},
-
-		// removing the CSS classes once dragging is over.
+		
 		stop: function () {
 			$(this).removeClass("active").closest("#product").removeClass("active");
 		}
 	});
 
-	// jQuery UI Droppable
+	// === We make the basket a droppable zone for the products.
 	$(".basket").droppable({
-
-		// The class that will be appended to the to-be-dropped-element (basket)
 		activeClass: "active",
-
-		// The class that will be appended once we are hovering the to-be-dropped-element (basket)
 		hoverClass: "hover",
 		helper: 'clone',
-
-		// The acceptance of the item once it touches the to-be-dropped-element basket
-		// For different values http://api.jqueryui.com/droppable/#option-tolerance
 		tolerance: "touch",
 		drop: function (event, ui) {
 
@@ -56,35 +46,39 @@ $(function () {
 				move = ui.draggable,
 				itemId = basket.find("ul li[data-id='" + move.attr("data-id") + "']");
 
-			// To increase the value by +1 if the same item is already in the basket
 			if (itemId.html() != null) {
 				itemId.find("input").val(parseInt(itemId.find("input").val()) + 1);
 			} else {
-				// Add the dragged item to the basket
 				addBasket(basket, move);
-
-				// Updating the quantity by +1" rather than adding it to the basket
 				move.find("input").val(parseInt(move.find("input").val()) + 1);
 			}
 
 		}
 	});
+	
+	// === FUNCTIONS
+	
+	// === Function to add a product to the basket
 
 	function addBasket(basket, move) {
 
-		basket.find("ul").append('<li data-id="' + move.attr("data-id") + '" class="form-group row">' + '<div class="col-sm-3">' + '<input class="count form-control input-sm" value="1" type="number" min="1" step="1">' + '</div>' + '<span class="name col-sm-5">' + move.find("h3").html() + '</span>' + '<span class="price col-sm-1">' + move.find("h4").html() + '</span>' + '<span class="col-sm-1">&pound;</span>' 
-			+ '<button class="delete pull-right"><span class="glyphicon glyphicon-remove" style="color:red"></span> </button>'
+		basket.find("ul").append('<li data-id="' + move.attr("data-id") + '" class="form-group row">'
+								 + '<div class="col-sm-3">' + '<input class="count form-control input-sm" value="1" type="number" min="1" step="1">' + '</div>' 
+								 + '<span class="name col-sm-5">' + move.find("h3").html() + '</span>' 
+								 + '<span class="price col-sm-1">' + move.find("h4").html() + '</span>' 
+								 + '<span class="col-sm-1">&pound;</span>' 
+								 + '<button class="delete pull-right"><span class="glyphicon glyphicon-remove" style="color:red"></span> </button>'
 		);
 
 
 		if (typeof $('.basket_list ul li') !== "undefined") {
 			$('#checkout').fadeIn('fast');
 			$('#clear').fadeIn('fast');
-			$('.basket_list p').fadeIn('fast');
 		}
 
 	}
 
+	// === Function to compute the discount when we checkout
 
 	function applyDiscount() {
 
@@ -154,38 +148,44 @@ $(function () {
 		alert(totalPrice);
 		alert(totalDiscountPrice);
 	}
+	
+	// === Function to clear all items from the basket
 
 	function emptyBasket() {
 
 		$('.basket ul li').fadeOut('fast', function () {
 			$('.basket ul li').remove();
 		});
-		$('.basket_list p').fadeOut('fast');
 		$('#checkout').fadeOut('fast');
 		$('#clear').fadeOut('fast');
 	}
 
 	// !!!!!!!!!! TODO add a function to verify the validity of the fields
+	
+	// === When we checkout, we open the modal with all infos
 
-	$('#checkout').live("click", function () {
+	$('#checkout').on("click", function () {
 		applyDiscount();
 	});
+	
+	// === To remove separately each items or empty the basket
 
-	$(".basket ul li button.delete").live("click", function () {
-		if ($('.basket ul li').size() === 1){ // Check if it is the only product and if so empty the basket
+	$(".basket ul li button.delete").on("click", function () {
+	//$(".basket ul li button").on("click", function () {
+	//$('.removes').on("click", function () {
+		if ($('.basket ul li').length === 0){ // Check if it is the only product and if so empty the basket
+		//if ($('.basket ul li').length == 0){ // Check if it is the only product and if so empty the basket
 			emptyBasket();
 		} else {
-			$(this).closest("li").remove();	  // If not remove only this product
+			//$(this).closest("li").remove();	  // If not remove only this product
 		}
 	});
 
-
-	$('#clear').live('click', function () {
+	
+	// === To empty entirely the basket
+	
+	$('#clear').on('click', function () {
 		emptyBasket();
 	});
-
-
-
-
 
 });
