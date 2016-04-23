@@ -9,7 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Eurostar basket content">
 	<title> Eurostar Basket </title>
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap.icon-large.min.css" rel="stylesheet">
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" style="text/css" href="css/style.css">
@@ -111,7 +111,15 @@
 				</div>
 
 				<div class="row col-sm-12">
-					<button type="submit" id="checkout" class="btn btn-sm btn-warning col-sm-offset-2 col-sm-3">Checkout</button>
+				
+					<!--
+					<p id="realTimeChekout">
+						<span>Total without discount: </span><span></span><br>
+						<span>Total with applied discount: </span><span></span><br>
+					</p>
+					-->	
+								
+					<button type="button" id="checkout" class="btn btn-sm btn-warning col-sm-offset-2 col-sm-3" data-toggle="modal" data-target="#toCheckout">Checkout</button>
 					<button type="reset" id="clear" class="btn btn-sm btn-danger col-sm-offset-2 col-sm-3 col-sm-offset-2">Clear</button>
 				</div>
 			</div>
@@ -121,6 +129,72 @@
 
 	<!-- Modal on checkout button
 		======================================================================================================= -->
+
+	<div id="toCheckout" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Your order</h4>
+				</div>
+				<div class="modal-body">
+					<!--<p id="checkoutModal">
+						<span> Products </span>
+						<span> Quantity </span>
+						<span> Unit price </span>
+						<span> Sub total </span>
+					</p>-->
+						
+						
+						
+					<table class="table table-hover" id="checkoutModal">
+						<thead>
+							<tr>
+								<th>Products</th>
+								<th>Quantity</th>
+								<th>Unit price (&pound;)</th>
+								<th>Sub total (&pound;)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr data-id="m">
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr data-id="bu">
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr data-id="br">
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+						
+				
+					<p id="checkoutTotal">
+						<span> Total without discount: </span><br>
+						<span> Total with applied discount: </span><br>
+						<span> By shopping with us today you saved: </span><br>
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" data-dismiss="modal">Proceed to payment</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
 
 	<!-- Section: reviews in real time (angular.js)
 		======================================================================================================= -->
@@ -136,7 +210,7 @@
 	<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js"></script>-->
 	<!--<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>-->
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="js/script.js"></script>
 
 </body>

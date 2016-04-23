@@ -1,6 +1,12 @@
 $(function () {
 	
 	
+	
+	
+	/*$('basket ul li[data-id="1"] .count').formValidation();
+	$('basket ul li[data-id="2"] .count').formValidation();
+	$('basket ul li[data-id="3"] .count').formValidation();*/
+	
 	// === Display or hide on hovering the description of the products.
 	$('a').mouseover(function() {
 		$('h3', this).css("visibility", "visible");
@@ -63,7 +69,7 @@ $(function () {
 	function addBasket(basket, move) {
 
 		basket.find("ul").append('<li data-id="' + move.attr("data-id") + '" class="form-group row">'
-								 + '<div class="col-sm-3">' + '<input class="count form-control input-sm" value="1" type="number" min="1" step="1">' + '</div>' 
+								 + '<div class="col-sm-3">' + '<input class="count form-control input-sm" value="1" type="number" min="1" step="1" >' + '</div>' 
 								 + '<span class="name col-sm-5">' + move.find("h3").html() + '</span>' 
 								 + '<span class="price col-sm-1">' + move.find("h4").html() + '</span>' 
 								 + '<span class="col-sm-1">&pound;</span>' 
@@ -74,7 +80,7 @@ $(function () {
 		if (typeof $('.basket_list ul li') !== "undefined") {
 			$('#checkout').fadeIn('fast');
 			$('#clear').fadeIn('fast');
-		}
+		}	
 
 	}
 
@@ -94,7 +100,10 @@ $(function () {
 			priceBread = $('li[data-id="3"] .price').text(),
 			priceDiscountedBread,
 			priceDiscountedMilk,
-			totalSavings;
+			totalSavings,
+			nameProductMilk = $('li[data-id="1"] .name').text(),
+			nameProductButter = $('li[data-id="2"] .name').text(),
+			nameProductBread = $('li[data-id="3"] .name').text();
 
 		// === Condition on the milk to get the discount 
 
@@ -134,19 +143,45 @@ $(function () {
 		if (typeof numberBread === 'undefined') {
 			numberBread = 0;
 		}
+		
+		// === We compute the totals (normal, discount and savings)
 
 		totalPrice = numberMilk * priceMilk + numberBread * priceBread + numberButter * priceButter;
 		priceDiscountedBread = numberBread * priceBread - discountBreadNumber * (priceBread / 2);
 		priceDiscountedMilk = priceMilk * numberMilk - priceMilk * discountMilkNumber;
 		totalDiscountPrice = priceDiscountedBread + priceDiscountedMilk + numberButter * priceButter;
 		totalSavings = totalPrice - totalDiscountPrice;
+		
+		
+		/*basket.find("ul").append('<li data-id="' + move.attr("data-id") + '" class="form-group row">'
+								 + '<div class="col-sm-3">' + '<input class="count form-control input-sm" value="1" type="number" min="1" step="1" >' + '</div>' 
+								 + '<span class="name col-sm-5">' + move.find("h3").html() + '</span>' 
+								 + '<span class="price col-sm-1">' + move.find("h4").html() + '</span>' 
+								 + '<span class="col-sm-1">&pound;</span>' 
+								 + '<button class="delete pull-right"><span class="glyphicon glyphicon-remove" style="color:red"></span> </button>'
+								);*/
+		
+		
+		
+		$('#checkoutModal tr[data-id="m"] td:eq(0)').append(nameProductMilk);
+		$('#checkoutModal tr[data-id="m"] td:eq(1)').append(numberMilk);
+		$('#checkoutModal tr[data-id="m"] td:eq(2)').append(priceMilk);
+		$('#checkoutModal tr[data-id="m"] td:eq(3)').append((priceMilk*numberMilk).toFixed(2));
+		
+		$('#checkoutModal tr[data-id="bu"] td:eq(0)').append(nameProductButter);
+		$('#checkoutModal tr[data-id="bu"] td:eq(1)').append(numberButter);
+		$('#checkoutModal tr[data-id="bu"] td:eq(2)').append(priceButter);
+		$('#checkoutModal tr[data-id="bu"] td:eq(3)').append((priceButter*numberButter).toFixed(2));
+		
+		$('#checkoutModal tr[data-id="br"] td:eq(0)').append(nameProductBread);
+		$('#checkoutModal tr[data-id="br"] td:eq(1)').append(numberBread);
+		$('#checkoutModal tr[data-id="br"] td:eq(2)').append(priceBread);
+		$('#checkoutModal tr[data-id="br"] td:eq(3)').append((priceBread*numberBread).toFixed(2));
+		
+		$('#checkoutTotal span:eq(0)').append((totalPrice).toFixed(2));
+		$('#checkoutTotal span:eq(1)').append((totalDiscountPrice).toFixed(2));
+		$('#checkoutTotal span:eq(2)').append((totalSavings).toFixed(2));
 
-
-		alert(numberMilk);
-		alert(numberBread);
-		alert(priceMilk);
-		alert(totalPrice);
-		alert(totalDiscountPrice);
 	}
 	
 	// === Function to clear all items from the basket
@@ -160,7 +195,38 @@ $(function () {
 		$('#clear').fadeOut('fast');
 	}
 
-	// !!!!!!!!!! TODO add a function to verify the validity of the fields
+	// === Function to check the validity of the form count
+	
+	function verifyInput() {
+		var numberProductType = 3;
+		
+		for (var i = 0; i < numberProductType; i++) {
+			
+		$('li[data-id="' + (i+1) + '"] .count').on('keypress', function(e) {
+			var userEntries = $(this).val();
+			
+			if (String.fromCharCode(e.which).match(/[^0-9_ ]/)) {
+				e.preventDefault();
+			} 
+			
+			/*
+			else if (userEntries === null || userEntries === "" || userEntries.length === 0){
+				$('#chekout').hide();
+			}*/
+			
+				
+				//if (!(userEntries.match(/(?=.*\d)/))) {
+					//$('#chekout').attr('disabled', true);
+					//}
+			
+		});
+		
+
+	}
+	}
+	
+	
+	
 	
 	// === When we checkout, we open the modal with all infos
 
@@ -169,23 +235,26 @@ $(function () {
 	});
 	
 	// === To remove separately each items or empty the basket
-
-	$(".basket ul li button.delete").on("click", function () {
-	//$(".basket ul li button").on("click", function () {
-	//$('.removes').on("click", function () {
-		if ($('.basket ul li').length === 0){ // Check if it is the only product and if so empty the basket
-		//if ($('.basket ul li').length == 0){ // Check if it is the only product and if so empty the basket
+	
+	$('body').on('click', '.basket ul li button.delete', function () {
+		if ($('.basket ul li').size() === 1){ // Check if it is the only product and if so empty the basket
 			emptyBasket();
 		} else {
 			//$(this).closest("li").remove();	  // If not remove only this product
+			$(this).closest("li").fadeOut('fast', function () {
+				$(this).closest("li").remove();
+		})
 		}
 	});
-
 	
 	// === To empty entirely the basket
 	
 	$('#clear').on('click', function () {
 		emptyBasket();
+	});
+	
+	$('body').on('keyup', '.basket ul li .count', function () {
+		verifyInput();
 	});
 
 });
