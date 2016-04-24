@@ -71,21 +71,21 @@
 			<hr>
 			<ul class="clear">
 				<li data-id="1" class="col-sm-4">
-					<a href="#">
+					<a href="">
 						<img class="img-responsive img-rounded" src="images/Milk.jpg" alt="Milk bottle">
 						<h3>Milk</h3>
 						<h4>1.15</h4>
 					</a>
 				</li>
 				<li data-id="2" class="col-sm-4">
-					<a href="#">
+					<a href="">
 						<img class="img-responsive img-rounded" src="images/Butter.jpg" alt="Butter">
 						<h3>Butter</h3>
 						<h4>0.80</h4>
 					</a>
 				</li>
 				<li data-id="3" class="col-sm-4">
-					<a href="#">
+					<a href="">
 						<img class="img-responsive img-rounded" src="images/Bread.jpg" alt="Bread">
 						<h3>Bread</h3>
 						<h4>1.00</h4>
@@ -114,17 +114,15 @@
 				</div>
 
 				<div class="row col-sm-12">
-				
-					<!--
-					<p id="realTimeChekout">
-						<span>Total without discount: </span><span></span><br>
-						<span>Total with applied discount: </span><span></span><br>
-					</p>
-					-->	
-								
+
 					<button type="button" id="checkout" class="btn btn-sm btn-warning col-sm-offset-2 col-sm-3" data-toggle="modal" data-target="#toCheckout">Checkout</button>
 					<button type="reset" id="clear" class="btn btn-sm btn-danger col-sm-offset-2 col-sm-3 col-sm-offset-2">Clear</button>
 				</div>
+				
+				<div class="alert alert-danger fade in row col-sm-12" id="fieldCheck"> 
+					Enter a positive integer only for each field !
+				</div>
+				
 			</div>
 		</aside>
 
@@ -134,7 +132,7 @@
 		======================================================================================================= -->
 
 	<div id="toCheckout" class="modal fade" role="dialog">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-lg">
 
 			<!-- Modal content-->
 			<div class="modal-content">
@@ -143,15 +141,7 @@
 					<h4 class="modal-title">Your order</h4>
 				</div>
 				<div class="modal-body">
-					<!--<p id="checkoutModal">
-						<span> Products </span>
-						<span> Quantity </span>
-						<span> Unit price </span>
-						<span> Sub total </span>
-					</p>-->
-						
-						
-						
+
 					<table class="table table-hover table-responsive table-condensed" id="checkoutModal">
 						<thead>
 							<tr>
@@ -170,50 +160,47 @@
 							</tr>
 						</tbody>
 					</table>
-					
-					
+
+
 					<div class="alert alert-success fade in" id="successMilk">
-						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						 You were eligible for a discount, 1 milk added to your basket for free !
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> You were eligible for a discount, 1 milk added to your basket for free !
 					</div>
 					<div class="alert alert-success fade in" id="successMilk2">
-						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						You are enjoying our discount, each time you buy 3 milks you get one for free !
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> You are enjoying our discount, each time you buy 3 milks you get one for free !
 					</div>
 					<div class="alert alert-danger fade in" id="failMilk">
-						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-						You are not enjoying our discounts, if you wish to buy 3 milks at least !
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> You are not enjoying our discounts, if you wish to buy 3 milks at least !
 					</div>
-					
+
 					<table class="table table-hover table-responsive" id="checkoutModal2">
 						<tbody>
-						<tr data-id="bu">
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
+							<tr data-id="bu">
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
 						</tbody>
 					</table>
-					
+
 					<span> This is an aler text to show if the user has the discount or not</span>
-					
-					
+
+
 					<table class="table table-hover table-responsive" id="checkoutModal3">
 						<tbody>
-					<tr data-id="br">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
+							<tr data-id="br">
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
 						</tbody>
 					</table>
-					
+
 					<span> This is an aler text to show if the user has the discount or not</span>
-					
-					
-					
+
+
+
 					<table class="table table-hover table-responsive" id="checkoutTotal">
 						<thead>
 							<tr>
@@ -248,13 +235,7 @@
 	<!-- Footer: links
 		======================================================================================================= -->
 
-
-	<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>-->
-	<!--<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>-->
-	
-	<script src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
-	<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js"></script>-->
-	<!--<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>-->
+	<script src="http://code.jquery.com/jquery-2.2.3.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="js/script.js"></script>

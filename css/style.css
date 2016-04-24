@@ -26,6 +26,10 @@ a h3 {
 	text-align: center;
 }
 
+#clear {
+	margin-bottom: 5%;
+}
+
 a h4 {
 	position:relative;
 	bottom:75px;
