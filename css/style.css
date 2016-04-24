@@ -30,6 +30,18 @@ a h3 {
 	margin-bottom: 5%;
 }
 
+.table tr td {
+	text-align: center;
+}
+
+.alert {
+	text-align: center;
+}
+
+.titleModal {
+	text-align: center;
+}
+
 a h4 {
 	position:relative;
 	bottom:75px;
@@ -59,7 +71,7 @@ img {
 	background-color: #444;
 }
 
-h2 {
+h2, h3 {
 	text-align: center;
 }
 
@@ -75,4 +87,9 @@ li {
 .basket_list ul li span {
 	vertical-align: middle;
 	text-align: center;
+}
+
+#sidebar .basket {
+	width: 100%;
+	min-height: 150px;
 }

@@ -92,6 +92,10 @@
 					</a>
 				</li>
 			</ul>
+			
+			<h3>
+				Drag items toward the basket to buy them ! <span class="glyphicon glyphicon-share"></span>
+			</h3>
 		</section>
 
 		<!-- Aside: Basket
@@ -103,12 +107,6 @@
 
 			<div class="basket row col-sm-12">
 				<div class="basket_list col-sm-12">
-					<!--<p class="col-sm-12">
-						<span class="col-sm-4"> Quantity </span>
-						<span class="col-sm-4"> Name </span>
-						<span class="col-sm-4"> Price &pound; </span>
-					</p>-->
-
 					<ul>
 					</ul>
 				</div>
@@ -119,11 +117,12 @@
 					<button type="reset" id="clear" class="btn btn-sm btn-danger col-sm-offset-2 col-sm-3 col-sm-offset-2">Clear</button>
 				</div>
 				
-				<div class="alert alert-danger fade in row col-sm-12" id="fieldCheck"> 
-					Enter a positive integer only for each field !
-				</div>
-				
 			</div>
+			
+			<div class="alert alert-danger fade in row col-sm-12" id="fieldCheck"> 
+				Please enter a positive integer in each field !
+			</div>
+			
 		</aside>
 
 	</div>
@@ -132,23 +131,22 @@
 		======================================================================================================= -->
 
 	<div id="toCheckout" class="modal fade" role="dialog">
-		<div class="modal-dialog modal-lg">
-
-			<!-- Modal content-->
+		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Your order</h4>
+					<h4 class="titleModal modal-title">Your basket content</h4>
 				</div>
 				<div class="modal-body">
 
-					<table class="table table-hover table-responsive table-condensed" id="checkoutModal">
+					<table class="table table-hover table-responsive" id="checkoutModal">
 						<thead>
 							<tr>
-								<th>Products</th>
+								<th>Product</th>
 								<th>Quantity</th>
 								<th>Unit price</th>
-								<th>Sub total</th>
+								<th>Sub total (full price)</th>
+								<th>Sub total (discounted)</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -157,57 +155,33 @@
 								<td></td>
 								<td></td>
 								<td></td>
+								<td></td>
 							</tr>
-						</tbody>
-					</table>
-
-
-					<div class="alert alert-success fade in" id="successMilk">
-						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> You were eligible for a discount, 1 milk added to your basket for free !
-					</div>
-					<div class="alert alert-success fade in" id="successMilk2">
-						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> You are enjoying our discount, each time you buy 3 milks you get one for free !
-					</div>
-					<div class="alert alert-danger fade in" id="failMilk">
-						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> You are not enjoying our discounts, if you wish to buy 3 milks at least !
-					</div>
-
-					<table class="table table-hover table-responsive" id="checkoutModal2">
-						<tbody>
 							<tr data-id="bu">
 								<td></td>
 								<td></td>
 								<td></td>
 								<td></td>
+								<td></td>
 							</tr>
-						</tbody>
-					</table>
-
-					<span> This is an aler text to show if the user has the discount or not</span>
-
-
-					<table class="table table-hover table-responsive" id="checkoutModal3">
-						<tbody>
 							<tr data-id="br">
 								<td></td>
 								<td></td>
 								<td></td>
 								<td></td>
+								<td></td>
 							</tr>
 						</tbody>
 					</table>
 
-					<span> This is an aler text to show if the user has the discount or not</span>
+					<div class="updatedAlert"></div>
 
-
-
-					<table class="table table-hover table-responsive" id="checkoutTotal">
+					<table class="table table-hover table-responsive table-condesned" id="checkoutTotal">
 						<thead>
 							<tr>
-								<th>Total (no discount)</th>
-								<th>Total (discount)</th>
-								<th>Amount due</th>
-								<th>Your savings</th>
+								<th>Total number items </th>
+								<th>Amount (no discount)</th>
+								<th>Amount (discounted)</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -215,14 +189,19 @@
 								<td></td>
 								<td></td>
 								<td></td>
-								<td></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
+				
 				<div class="modal-footer">
-					<button type="button" class="btn btn-success" data-dismiss="modal" id="reloaPage">Proceed to payment</button>
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<p id="totalAll">
+						<span class="pull-left"> <strong>Amount to pay: </strong> </span> <span> </span> <br>
+						<span class="pull-left"> <strong>Today you saved </strong> </span> <span> </span> <br>
+					</p>
+					
+					<button type="button" class="btn btn-warning" data-dismiss="modal" id="reloadPage">Proceed to payment</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Update basket</button>
 				</div>
 			</div>
 

@@ -1,10 +1,12 @@
 $(function () {
+	
+	// ============================================= Improved styling on events =======================================
+	// ================================================================================================================
 
-	// === Initially, the helper messages are desactivated
+	// === Initially, the validating message and the validation buttons are hided
 
-	$('#successMilk').hide();
-	$('#successMilk2').hide();
-	$('#failMilk').hide();
+	$('#checkout').hide();
+	$('#clear').hide();
 	$('#fieldCheck').hide();
 
 	// === Adding small effect on hover for the buttons
@@ -17,12 +19,14 @@ $(function () {
 		$(this).css('box-shadow', 'none');
 	});
 
-	// === We desactivate the link on user click
+	// === We desactivate each link on user click
+	
 	$('a').on('click', function (e) {
 		e.preventDefault();
 	});
 
 	// === Display or hide on hovering the description of the products.
+	
 	$('a').mouseover(function () {
 		$('h3', this).css("visibility", "visible");
 		$('h4', this).css("visibility", "visible");
@@ -32,18 +36,18 @@ $(function () {
 		$('h3', this).css("visibility", "hidden");
 		$('h4', this).css("visibility", "hidden");
 	});
+	
+	// ============================================= Drag and drop ====================================================
+	// ================================================================================================================
 
-	// === We initially hide the buttons for checkout and clear.
-	$('#checkout').hide();
-	$('#clear').hide();
 
 	// === We make the products draggable towards the basket on the right.
+	
 	$("#product li").draggable({
 		revert: true,
 		containment: '.container',
 		snap: 'basket',
 		helper: 'clone',
-
 
 		drag: function () {
 			$(this).addClass("active");
@@ -56,11 +60,13 @@ $(function () {
 	});
 
 	// === We make the basket a droppable zone for the products.
+	
 	$(".basket").droppable({
 		activeClass: "active",
 		hoverClass: "hover",
 		helper: 'clone',
 		tolerance: "touch",
+		
 		drop: function (event, ui) {
 
 			var basket = $(this),
@@ -78,8 +84,9 @@ $(function () {
 
 		}
 	});
-
-	// === FUNCTIONS
+	
+	// ============================================= Functions ========================================================
+	// ================================================================================================================
 
 	// === Function to add a product to the basket
 
@@ -94,13 +101,91 @@ $(function () {
 		}
 
 	}
+	
+	// === Function to check the validity of the form count
 
+	function verifyInput() {
+
+		// --- Set up the boolean for the first field
+		function testItemOne() {
+			if (typeof $('li[data-id="1"] .count').val() !== "undefined") { // We verify only if the field is defined
+				
+				if ($('li[data-id="1"] .count').val() <= 0 || $('li[data-id="1"] .count').val().length === 0 || $('li[data-id="1"] .count').val() % 1 !== 0) {
+					return false;
+					
+				} else {
+					return true;
+				}
+				
+			} else {
+				return true; // If field is undefined we consider it checked
+			}
+		}
+
+		// --- Set up the boolean for the second field
+		function testItemTwo() {
+			if (typeof $('li[data-id="2"] .count').val() !== "undefined") { // We verify only if the field is defined
+				
+				if ($('li[data-id="2"] .count').val() <= 0 || $('li[data-id="2"] .count').val().length === 0 || $('li[data-id="2"] .count').val() % 1 !== 0) {
+					return false;
+					
+				} else {
+					return true;
+				}
+				
+			} else {
+				return true; // If field is undefined we consider it checked
+			}
+		}
+
+		// --- Set up the boolean for the third field
+		function testItemThree() {
+			if (typeof $('li[data-id="3"] .count').val() !== "undefined") { // We verify only if the field is defined
+				
+				if ($('li[data-id="3"] .count').val() <= 0 || $('li[data-id="3"] .count').val().length === 0 || $('li[data-id="3"] .count').val() % 1 !== 0) {
+					return false;
+					
+				} else {
+					return true;
+				}
+				
+			} else {
+				return true; // If field is undefined we consider it checked
+			}
+		}
+
+		// --- Now we enable the checkout button or not depending on the validity of the fields and we show the alert if non valid
+
+		if (!testItemOne() || !testItemTwo() || !testItemThree()) {
+			$('#checkout').attr('disabled', true);
+			$('#fieldCheck').show();
+			
+		} else {
+			$('#checkout').attr('disabled', false);
+			$('#fieldCheck').hide();
+		}
+
+	}
+	
+	// === Function to clear all items from the basket
+
+	function emptyBasket() {
+
+		$('.basket ul li').fadeOut('fast', function () {
+			$('.basket ul li').remove();
+		});
+		$('#checkout').fadeOut('fast');
+		$('#clear').fadeOut('fast');
+		$('#fieldCheck').hide();
+	}
+	
 	// === Function to compute the discount when we checkout
 
 	function applyDiscount() {
 
 		// === Local variables to help clarifying the conditions for discount
 
+		
 		var discountMilkNumber,
 			discountBreadNumber,
 			numberMilk = $('li[data-id="1"] .count').val(),
@@ -116,36 +201,33 @@ $(function () {
 			totalSavings,
 			nameProductMilk = $('li[data-id="1"] .name').text(),
 			nameProductButter = $('li[data-id="2"] .name').text(),
-			nameProductBread = $('li[data-id="3"] .name').text();
+			nameProductBread = $('li[data-id="3"] .name').text(),
+			numberProductsAll;
 
 		// === Condition on the milk to get the discount 
 
-		if (typeof numberMilk === 'undefined') { // Set the values if user doesn't take milk
+		if (typeof numberMilk === 'undefined') { // Set the values if the user doesn't take milk
 			numberMilk = 0;
 			discountMilkNumber = 0;
 			priceMilk = 1.15;
-			$('#failMilk').show();
-		} else if (numberMilk % 3 === 0) { // Add a milk in the basket for free when user select a multiple of 3
-			$('#failMilk').hide();
-			$('#successMilk').show();
+			
+		} else if (numberMilk % 3 === 0) { // Add a milk in the basket for free when user select multiple of 3
 			numberMilk++;
-			if (numberMilk % 4 === 0) { // Main condition to check if the user is eligible for a discount
-				discountMilkNumber = numberMilk / 4;
-			} else if (numberMilk % 4 !== 0) { // If not a multiple of 4, take the lower rounded value for discounted milk 
-				discountMilkNumber = Math.floor(numberMilk / 4);
-			}
+			
+				if (numberMilk % 4 === 0) { // Main condition to check if the user is eligible for a discount
+					discountMilkNumber = numberMilk / 4;
+				
+				} else if (numberMilk % 4 !== 0) { // If not multiple of 4, the lower rounded value gives discounted milk num 
+					discountMilkNumber = Math.floor(numberMilk / 4);
+				}
+			
 		} else if (numberMilk % 4 === 0) { // Repeat the main condition if first number is not a multiple of three
-			$('#failMilk').hide();
-			$('#successMilk').hide();
-			$('#successMilk2').show();
 			discountMilkNumber = numberMilk / 4;
+			
 		} else if (numberMilk % 4 !== 0) {
-			$('#failMilk').hide();
-			$('#successMilk').hide();
-			$('#successMilk2').show();
 			discountMilkNumber = Math.floor(numberMilk / 4);
+			
 		} else {
-			// Just problem to display the good message here
 			discountMilkNumber = 0;
 		}
 
@@ -155,19 +237,23 @@ $(function () {
 			numberButter = 0;
 			discountBreadNumber = 0;
 			priceButter = 0.80;
+			
 		} else {
 			if (numberButter >= 2) {
 				if (numberButter % 2 === 0) {
 					discountBreadNumber = numberButter - (numberButter / 2);
+					
 				} else if (numberButter % 2 !== 0) {
 					discountBreadNumber = (numberButter - 1) - ((numberButter - 1) / 2);
 				}
+				
 			} else {
 				discountBreadNumber = 0;
 			}
 		}
 
 		// === We check if there is any bread in the basket
+		
 		if (typeof numberBread === 'undefined') {
 			numberBread = 0;
 			priceBread = 1.00;
@@ -180,107 +266,56 @@ $(function () {
 		priceDiscountedMilk = priceMilk * numberMilk - priceMilk * discountMilkNumber;
 		totalDiscountPrice = priceDiscountedBread + priceDiscountedMilk + numberButter * priceButter;
 		totalSavings = totalPrice - totalDiscountPrice;
+		numberProductsAll = parseInt(numberMilk) + parseInt(numberBread) + parseInt(numberButter);
 
 
 		// === Data presentation for the checkout process. Since only a small amount of data is needed here,
-		// any loop is unecessary and we can use our variables.
+		// === any loop is unecessary and we can use our local variables for ease.
 
 		$('#checkoutModal tr[data-id="m"] td:eq(0)').replaceWith('<td> Milk </td>');
 		$('#checkoutModal tr[data-id="m"] td:eq(1)').replaceWith('<td>' + numberMilk + '</td>');
-		$('#checkoutModal tr[data-id="m"] td:eq(2)').replaceWith('<td>' + priceMilk + ' &pound;</td>');
-		$('#checkoutModal tr[data-id="m"] td:eq(3)').replaceWith('<td>' + numberMilk + ' x ' + priceMilk + ' = ' +
-			(priceMilk * numberMilk).toFixed(2) + ' &pound;</td>');
+		$('#checkoutModal tr[data-id="m"] td:eq(2)').replaceWith('<td> &pound; ' + priceMilk + '</td>');
+		$('#checkoutModal tr[data-id="m"] td:eq(3)').replaceWith('<td> &pound; ' + (priceMilk * numberMilk).toFixed(2) + '</td>');
+		$('#checkoutModal tr[data-id="m"] td:eq(4)').replaceWith('<td> &pound; ' + (priceDiscountedMilk).toFixed(2) + '</td>');
 
-		$('#checkoutModal2 tr[data-id="bu"] td:eq(0)').replaceWith('<td> Butter </td>');
-		$('#checkoutModal2 tr[data-id="bu"] td:eq(1)').replaceWith('<td>' + numberButter + '</td>');
-		$('#checkoutModal2 tr[data-id="bu"] td:eq(2)').replaceWith('<td>' + priceButter + ' &pound;</td>');
-		$('#checkoutModal2 tr[data-id="bu"] td:eq(3)').replaceWith('<td>' + numberButter + ' x ' + priceButter + ' = ' +
-			(priceButter * numberButter).toFixed(2) + ' &pound;</td>');
+		$('#checkoutModal tr[data-id="bu"] td:eq(0)').replaceWith('<td> Butter </td>');
+		$('#checkoutModal tr[data-id="bu"] td:eq(1)').replaceWith('<td>' + numberButter + '</td>');
+		$('#checkoutModal tr[data-id="bu"] td:eq(2)').replaceWith('<td> &pound; ' + priceButter + '</td>');
+		$('#checkoutModal tr[data-id="bu"] td:eq(3)').replaceWith('<td> &pound; ' + (priceButter * numberButter).toFixed(2) + '</td>');
+		$('#checkoutModal tr[data-id="bu"] td:eq(4)').replaceWith('<td> &pound; ' + (priceButter * numberButter).toFixed(2) + '</td>');
 
-		$('#checkoutModal3 tr[data-id="br"] td:eq(0)').replaceWith('<td> Bread </td>');
-		$('#checkoutModal3 tr[data-id="br"] td:eq(1)').replaceWith('<td>' + numberBread + '</td>');
-		$('#checkoutModal3 tr[data-id="br"] td:eq(2)').replaceWith('<td>' + priceBread + ' &pound;</td>');
-		$('#checkoutModal3 tr[data-id="br"] td:eq(3)').replaceWith('<td>' + numberBread + ' x ' + priceBread + ' = ' +
-			(priceBread * numberBread).toFixed(2) + ' &pound;</td>');
+		$('#checkoutModal tr[data-id="br"] td:eq(0)').replaceWith('<td> Bread </td>');
+		$('#checkoutModal tr[data-id="br"] td:eq(1)').replaceWith('<td>' + numberBread + '</td>');
+		$('#checkoutModal tr[data-id="br"] td:eq(2)').replaceWith('<td> &pound; ' + priceBread + '</td>');
+		$('#checkoutModal tr[data-id="br"] td:eq(3)').replaceWith('<td> &pound; ' + (priceBread * numberBread).toFixed(2) + '</td>');
+		$('#checkoutModal tr[data-id="br"] td:eq(4)').replaceWith('<td> &pound; ' + (priceDiscountedBread).toFixed(2) + '</td>');
 
-		$('#checkoutTotal tr[data-id="tot"] td:eq(0)').replaceWith('<td>' + (totalPrice).toFixed(2) + '</td>');
-		$('#checkoutTotal tr[data-id="tot"] td:eq(1)').replaceWith('<td>' + (totalDiscountPrice).toFixed(2) + '</td>');
-		$('#checkoutTotal tr[data-id="tot"] td:eq(2)').replaceWith('<td>' + (totalDiscountPrice).toFixed(2) + '</td>');
-		$('#checkoutTotal tr[data-id="tot"] td:eq(3)').replaceWith('<td>' + (totalSavings).toFixed(2) + '</td>');
-
-	}
-
-	// === Function to clear all items from the basket
-
-	function emptyBasket() {
-
-		$('.basket ul li').fadeOut('fast', function () {
-			$('.basket ul li').remove();
-		});
-		$('#checkout').fadeOut('fast');
-		$('#clear').fadeOut('fast');
-		$('#fieldCheck').hide();
-	}
-
-	// === Function to check the validity of the form count
-
-	function verifyInput() {
-
-		// Set up three booleans to check each field
-
-		function testItemOne() {
-
-			if (typeof $('li[data-id="1"] .count').val() !== "undefined") { // We verify only if the field is defined
-				if ($('li[data-id="1"] .count').val() <= 0 || $('li[data-id="1"] .count').val().length === 0 || $('li[data-id="1"] .count').val() % 1 !== 0) {
-					return false;
-				} else {
-					return true;
-				}
-			} else {
-				return true; // If field is undefined we consider it checked
-			}
-		}
-
-		function testItemTwo() {
-
-			if (typeof $('li[data-id="2"] .count').val() !== "undefined") { // We verify only if the field is defined
-				if ($('li[data-id="2"] .count').val() <= 0 || $('li[data-id="2"] .count').val().length === 0 || $('li[data-id="2"] .count').val() % 1 !== 0) {
-					return false;
-				} else {
-					return true;
-				}
-			} else {
-				return true; // If field is undefined we consider it checked
-			}
-		}
-
-		function testItemThree() {
-
-			if (typeof $('li[data-id="3"] .count').val() !== "undefined") { // We verify only if the field is defined
-				if ($('li[data-id="3"] .count').val() <= 0 || $('li[data-id="3"] .count').val().length === 0 || $('li[data-id="3"] .count').val() % 1 !== 0) {
-					return false;
-				} else {
-					return true;
-				}
-			} else {
-				return true; // If field is undefined we consider it checked
-			}
-		}
-
-		// Now we enable the checkout button or not depending on the validity of the fields
-		// and we show the alert if non valid
-
-		if (!testItemOne() || !testItemTwo() || !testItemThree()) {
-			$('#checkout').attr('disabled', true);
-			$('#fieldCheck').show();
+		$('#checkoutTotal tr[data-id="tot"] td:eq(0)').replaceWith('<td>' + numberProductsAll + '</td>');
+		$('#checkoutTotal tr[data-id="tot"] td:eq(1)').replaceWith('<td> &pound; ' + (totalPrice).toFixed(2) + '</td>');
+		$('#checkoutTotal tr[data-id="tot"] td:eq(2)').replaceWith('<td> &pound; ' + (totalDiscountPrice).toFixed(2) + '</td>');
+		
+		
+		$('#totalAll span:eq(1)').replaceWith('<span> <strong> &pound; ' + (totalDiscountPrice).toFixed(2) + '</strong></span>');
+		$('#totalAll span:eq(3)').replaceWith('<span> <strong> &pound; ' + (totalSavings).toFixed(2) + '</strong></span>');
+		
+		// === We show the helper message for the discounts or not
+		
+		if (discountMilkNumber >= 1 || discountBreadNumber >= 1) {
+		
+			$('.updatedAlert').replaceWith('<div class="updatedAlert alert alert-success fade in"> You have ' + discountMilkNumber + ' free milk(s) and ' + discountBreadNumber + ' bread(s) half price in your basket</div>');
+			
 		} else {
-			$('#checkout').attr('disabled', false);
-			$('#fieldCheck').hide();
+			
+			$('.updatedAlert').replaceWith('<div class="updatedAlert alert alert-danger fade in"> Buy at least 3 milks or 2 butters if you wish to enjoy our offer !</div>');
 		}
-
+			
 	}
 
-	// === We check the validity of each field on keyup
+	
+	// ============================================= Main events ========================================================
+	// ==================================================================================================================
+
+	// === We check the validity of each field on keyup if the user modifies them
 	
 	$('body').on('keyup', '.basket ul li .count', function () {
 		verifyInput();
@@ -304,14 +339,17 @@ $(function () {
 		}
 	});
 
-	// === To empty entirely the basket
+	// === To clear entirely the basket
 
 	$('#clear').on('click', function () {
 		emptyBasket();
 	});
+	
+	// === For the purpose of this program, the payment button reload entirely the page.
 
 	$('#reloadPage').on('click', function () {
 		$(this).location.reload(true);
 	});
+	
 
 });
