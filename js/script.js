@@ -303,12 +303,13 @@ $(function () {
 		$('#totalAll span:eq(3)').replaceWith('<span> <strong> &pound; ' + (totalSavings).toFixed(2) + '</strong></span>');
 		
 		// === We show the helper message for the discounts or not
-		
+	
 		if (discountMilkNumber >= 1 || discountBreadNumber >= 1) {
-		
-			$('.updatedAlert').replaceWith('<div class="updatedAlert alert alert-info fade in"> You have ' + discountMilkNumber + ' free milk(s) and ' + discountBreadNumber + ' bread(s) half price in your basket</div>');
 			
-		} else {
+				$('.updatedAlert').replaceWith('<div class="updatedAlert alert alert-info fade in"> You have ' + discountMilkNumber + ' free milk(s) and ' + discountBreadNumber + ' bread(s) half price in your basket</div>');
+		}
+	
+		else {
 			
 			$('.updatedAlert').replaceWith('<div class="updatedAlert alert alert-warning fade in"> Buy at least 3 milks or 2 butters if you wish to enjoy our offer !</div>');
 		}
