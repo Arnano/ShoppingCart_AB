@@ -8,10 +8,15 @@
 	-o-background-size: cover;
 }
 
+/*
 header div {
 	background-image: linear-gradient(to right, burlywood 0%, #FFFFFF 100%);
 	border: solid 1px black;
 	border-radius: 10px;
+	text-align: center;
+}*/
+
+#theheader h1, #theheader p {
 	text-align: center;
 }
 

@@ -12,6 +12,7 @@
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap.icon-large.min.css" rel="stylesheet">
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" style="text/css" href="css/bootstrap_custom.css">
 	<link rel="stylesheet" style="text/css" href="css/style.css">
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -31,8 +32,26 @@
 	====================================================== -->
 
 	<header class="jumbotron row" id="theheader">
-		<div class="col-sm-12">
-			<h1> The Basket </h1>
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href=".container">Online shopping</a>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li> <a href="#carousel"> Our offers </a> </li>
+					<li> <a href="#product"> Your basket </a> </li>
+					<li> <a href="#reviews"> Reviews </a> </li>
+				</ul>
+			</div>
+		</nav>
+		
+		<div class="jumbotron row col-sm-12">
+			<h1> Your online shopping cart </h1>
 			<p> Don't miss out on today's exclusive offer</p>
 		</div>
 	</header>
@@ -113,13 +132,13 @@
 
 				<div class="row col-sm-12">
 
-					<button type="button" id="checkout" class="btn btn-sm btn-warning col-sm-offset-2 col-sm-3" data-toggle="modal" data-target="#toCheckout">Checkout</button>
-					<button type="reset" id="clear" class="btn btn-sm btn-danger col-sm-offset-2 col-sm-3 col-sm-offset-2">Clear</button>
+					<button type="button" id="checkout" class="btn btn-sm btn-primary col-sm-offset-2 col-sm-3" data-toggle="modal" data-target="#toCheckout">Checkout</button>
+					<button type="reset" id="clear" class="btn btn-sm btn-warning col-sm-offset-2 col-sm-3 col-sm-offset-2">Clear</button>
 				</div>
 				
 			</div>
 			
-			<div class="alert alert-danger fade in row col-sm-12" id="fieldCheck"> 
+			<div class="alert alert-info fade in row col-sm-12" id="fieldCheck"> 
 				Please enter a positive integer in each field !
 			</div>
 			
@@ -200,8 +219,8 @@
 						<span class="pull-left"> <strong>Today you saved </strong> </span> <span> </span> <br>
 					</p>
 					
-					<button type="button" class="btn btn-warning" data-dismiss="modal" id="reloadPage">Proceed to payment</button>
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Update basket</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" id="reloadPage">Proceed to payment</button>
+					<button type="button" class="btn btn-warning" data-dismiss="modal">Update basket</button>
 				</div>
 			</div>
 

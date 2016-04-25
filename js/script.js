@@ -3,7 +3,7 @@ $(function () {
 	// ============================================= Improved styling on events =======================================
 	// ================================================================================================================
 
-	// === Initially, the validating message and the validation buttons are hided
+	// === Initially, the validating message and the validation buttons are hiden
 
 	$('#checkout').hide();
 	$('#clear').hide();
@@ -19,9 +19,9 @@ $(function () {
 		$(this).css('box-shadow', 'none');
 	});
 
-	// === We desactivate each link on user click
+	// === We desactivate the image links on user click
 	
-	$('a').on('click', function (e) {
+	$('.clear a').on('click', function (e) {
 		e.preventDefault();
 	});
 
@@ -95,7 +95,7 @@ $(function () {
 		basket.find("ul").append('<li data-id="' + move.attr("data-id") + '" class="form-group row">' + '<div class="col-sm-3">' + '<input class="count form-control input-sm" value="1" type="number" min="1" step="1" >' + '</div>' + '<span class="name col-sm-5">' + move.find("h3").html() + '</span>' + '<span class="price col-sm-1">' + move.find("h4").html() + '</span>' + '<span class="col-sm-1">&pound;</span>' + '<button class="delete pull-right"><span class="glyphicon glyphicon-remove" style="color:red"></span> </button>');
 
 
-		if (typeof $('.basket_list ul li') !== "undefined") {
+		if (typeof $('.basket_list ul li') !== "undefined") {	
 			$('#checkout').fadeIn('fast');
 			$('#clear').fadeIn('fast');
 		}
@@ -158,11 +158,11 @@ $(function () {
 
 		if (!testItemOne() || !testItemTwo() || !testItemThree()) {
 			$('#checkout').attr('disabled', true);
-			$('#fieldCheck').show();
+			$('#fieldCheck').fadeIn('fast');
 			
 		} else {
 			$('#checkout').attr('disabled', false);
-			$('#fieldCheck').hide();
+			$('#fieldCheck').fadeOut('fast');
 		}
 
 	}
@@ -176,7 +176,7 @@ $(function () {
 		});
 		$('#checkout').fadeOut('fast');
 		$('#clear').fadeOut('fast');
-		$('#fieldCheck').hide();
+		$('#fieldCheck').fadeOut('fast');
 	}
 	
 	// === Function to compute the discount when we checkout
@@ -257,7 +257,11 @@ $(function () {
 		if (typeof numberBread === 'undefined') {
 			numberBread = 0;
 			priceBread = 1.00;
+		} else if (discountBreadNumber > numberBread) { // In case user wants 10 butters and 1 bread for example
+			discountBreadNumber = numberBread;
 		}
+		
+		
 
 		// === We compute the totals (normal, discount and savings)
 
@@ -302,14 +306,26 @@ $(function () {
 		
 		if (discountMilkNumber >= 1 || discountBreadNumber >= 1) {
 		
-			$('.updatedAlert').replaceWith('<div class="updatedAlert alert alert-success fade in"> You have ' + discountMilkNumber + ' free milk(s) and ' + discountBreadNumber + ' bread(s) half price in your basket</div>');
+			$('.updatedAlert').replaceWith('<div class="updatedAlert alert alert-info fade in"> You have ' + discountMilkNumber + ' free milk(s) and ' + discountBreadNumber + ' bread(s) half price in your basket</div>');
 			
 		} else {
 			
-			$('.updatedAlert').replaceWith('<div class="updatedAlert alert alert-danger fade in"> Buy at least 3 milks or 2 butters if you wish to enjoy our offer !</div>');
+			$('.updatedAlert').replaceWith('<div class="updatedAlert alert alert-warning fade in"> Buy at least 3 milks or 2 butters if you wish to enjoy our offer !</div>');
 		}
 			
 	}
+	
+	// === Small function to add a smooth scrolling on navigation
+	
+	$('header a').on('click', function(e) {
+		e.preventDefault();
+		var hash = this.hash;
+		$('html, body').animate({
+			scrollTop: $(this.hash).offset().top
+		}, 1000, function(){
+			window.location.hash = hash;
+		});
+	});
 
 	
 	// ============================================= Main events ========================================================
@@ -335,6 +351,7 @@ $(function () {
 		} else {
 			$(this).closest("li").fadeOut('fast', function () {
 				$(this).closest("li").remove(); // If not remove only this product
+				verifyInput();	// We check the validity of the remaining fields
 			});
 		}
 	});
@@ -348,7 +365,7 @@ $(function () {
 	// === For the purpose of this program, the payment button reload entirely the page.
 
 	$('#reloadPage').on('click', function () {
-		$(this).location.reload(true);
+		window.location.reload(true);
 	});
 	
 
