@@ -3,25 +3,29 @@ $(function () {
 	// ============================================= Improved styling on events =======================================
 	// ================================================================================================================
 
-	// === Initially, the validating message and the validation buttons are hiden
+	// === Initially, the basket buttons are hiden
 
 	$('#checkout').hide();
+	$('#help').hide();
 	$('#clear').hide();
-	$('#fieldCheck').hide();
 
 	// === Adding small effect on hover for the buttons
 
-	$('button').on('mouseover', function () {
+	$('.btn').on('mouseover', function () {
 		$(this).css('box-shadow', '5px 5px 5px black');
 	});
 
-	$('button').on('mouseout', function () {
+	$('.btn').on('mouseout', function () {
 		$(this).css('box-shadow', 'none');
 	});
 
 	// === We desactivate the image links on user click
 	
 	$('.clear a').on('click', function (e) {
+		e.preventDefault();
+	});
+	
+	$('.data-ng-class a').on('click', function (e) {
 		e.preventDefault();
 	});
 
@@ -92,13 +96,16 @@ $(function () {
 
 	function addBasket(basket, move) {
 
-		basket.find("ul").append('<li data-id="' + move.attr("data-id") + '" class="form-group row">' + '<div class="col-sm-3">' + '<input class="count form-control input-sm" value="1" type="number" min="1" step="1" >' + '</div>' + '<span class="name col-sm-5">' + move.find("h3").html() + '</span>' + '<span class="price col-sm-1">' + move.find("h4").html() + '</span>' + '<span class="col-sm-1">&pound;</span>' + '<button class="delete pull-right"><span class="glyphicon glyphicon-remove" style="color:red"></span> </button>');
+		basket.find("ul").append('<li data-id="' + move.attr("data-id") + '" class="form-group row">' + '<div class="col-sm-3">' + 
+								 '<input class="count form-control input-sm" value="1" type="number" min="1" step="1">' + '</div>' + '<span class="name col-sm-5">' + move.find("h3").html() + '</span>' + '<span class="price col-sm-1">' + move.find("h4").html() + '</span>' + '<span class="col-sm-1">&pound;</span>' + '<button class="delete pull-right"><span class="glyphicon glyphicon-remove" style="color:red"></span> </button>');
 
 
 		if (typeof $('.basket_list ul li') !== "undefined") {	
 			$('#checkout').fadeIn('fast');
 			$('#clear').fadeIn('fast');
 		}
+		
+		
 
 	}
 	
@@ -158,11 +165,13 @@ $(function () {
 
 		if (!testItemOne() || !testItemTwo() || !testItemThree()) {
 			$('#checkout').attr('disabled', true);
-			$('#fieldCheck').fadeIn('fast');
+			$('li .count').css('borderColor', 'darkred');
+			$('#help').fadeIn('fast');
 			
 		} else {
 			$('#checkout').attr('disabled', false);
-			$('#fieldCheck').fadeOut('fast');
+			$('li .count').css('borderColor', 'forestgreen');
+			$('#help').fadeOut('fast');
 		}
 
 	}
@@ -176,7 +185,7 @@ $(function () {
 		});
 		$('#checkout').fadeOut('fast');
 		$('#clear').fadeOut('fast');
-		$('#fieldCheck').fadeOut('fast');
+		$('#help').fadeOut('fast');
 	}
 	
 	// === Function to compute the discount when we checkout
@@ -185,7 +194,6 @@ $(function () {
 
 		// === Local variables to help clarifying the conditions for discount
 
-		
 		var discountMilkNumber,
 			discountBreadNumber,
 			numberMilk = $('li[data-id="1"] .count').val(),
@@ -273,8 +281,7 @@ $(function () {
 		numberProductsAll = parseInt(numberMilk) + parseInt(numberBread) + parseInt(numberButter);
 
 
-		// === Data presentation for the checkout process. Since only a small amount of data is needed here,
-		// === any loop is unecessary and we can use our local variables for ease.
+		// === Data presentation for the checkout process. 
 
 		$('#checkoutModal tr[data-id="m"] td:eq(0)').replaceWith('<td> Milk </td>');
 		$('#checkoutModal tr[data-id="m"] td:eq(1)').replaceWith('<td>' + numberMilk + '</td>');
@@ -316,11 +323,12 @@ $(function () {
 			
 	}
 	
-	// === Small function to add a smooth scrolling on navigation
+	// === Function to add a smooth scrolling on navigation
 	
 	$('header a').on('click', function(e) {
 		e.preventDefault();
 		var hash = this.hash;
+		
 		$('html, body').animate({
 			scrollTop: $(this.hash).offset().top
 		}, 1000, function(){
@@ -332,6 +340,12 @@ $(function () {
 	// ============================================= Main events ========================================================
 	// ==================================================================================================================
 
+	// === We check the validity of each field on change if the user modifies them
+	
+	$('body').on('change', '.basket ul li .count', function () {
+		verifyInput();
+	});
+	
 	// === We check the validity of each field on keyup if the user modifies them
 	
 	$('body').on('keyup', '.basket ul li .count', function () {
@@ -362,6 +376,10 @@ $(function () {
 	$('#clear').on('click', function () {
 		emptyBasket();
 	});
+	
+	// === We enable the help popover on button mouseover
+	
+	$("[data-toggle = 'popover']").popover();
 	
 	// === For the purpose of this program, the payment button reload entirely the page.
 

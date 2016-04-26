@@ -10,8 +10,6 @@
 	<meta name="description" content="Eurostar basket content">
 	<title> Eurostar Basket </title>
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/bootstrap.icon-large.min.css" rel="stylesheet">
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" style="text/css" href="css/bootstrap_custom.css">
 	<link rel="stylesheet" style="text/css" href="css/style.css">
 
@@ -32,7 +30,7 @@
 	====================================================== -->
 
 	<header class="jumbotron row" id="theheader">
-		<nav class="navbar navbar-inverse navbar-fixed-top">
+		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 					<span class="icon-bar"></span>
@@ -45,16 +43,16 @@
 				<ul class="nav navbar-nav">
 					<li> <a href="#carousel"> Our offers </a> </li>
 					<li> <a href="#product"> Your basket </a> </li>
-					<li> <a href="#reviews"> Reviews </a> </li>
+					<li> <a href="#reviewSection"> Reviews </a> </li>
 				</ul>
 			</div>
 		</nav>
 
-		<!--
+
 		<div class="jumbotron row col-sm-12" id="mainTitle">
 			<h1> Your online shopping cart </h1>
 			<p> Don't miss out on today's exclusive offer</p>
-		</div>-->
+		</div>
 	</header>
 
 	<!-- Caroussel in a container-fluid for all width
@@ -84,6 +82,7 @@
 		======================================================================================================= -->
 
 	<div class="jumbotron row">
+
 		<section id="product" class="col-sm-7">
 			<h2> Available products</h2>
 			<hr>
@@ -135,24 +134,28 @@
 					</ul>
 				</div>
 
-				<div class="row col-sm-12">
+				<div class="col-sm-12">
 
-					<button type="button" id="checkout" class="btn btn-sm btn-primary col-sm-offset-2 col-sm-3" data-toggle="modal" data-target="#toCheckout">Checkout</button>
-					<button type="reset" id="clear" class="btn btn-sm btn-warning col-sm-offset-2 col-sm-3 col-sm-offset-2">Clear</button>
+						<button type="button" id="checkout" class="btn btn-sm btn-primary col-sm-offset-1 col-sm-3" data-toggle="modal" data-target="#toCheckout"> Checkout </button> 
+
+					<button type="reset" id="clear" class="btn btn-sm btn-warning col-sm-offset-1 col-sm-3 col-sm-offset-1">Clear</button>
+					
+					<button type = "button" id="help" class = "btn btn-sm btn-success col-sm-offset-1 col-sm-3" title = "Can't checkout ?" data-trigger="hover" data-toggle = "popover"  data-content = "The number of items must be a positive integer number" data-placement="bottom">
+						Need help ?
+					</button>
+					
 				</div>
 
 			</div>
 
-			<div class="alert alert-info fade in row col-sm-12" id="fieldCheck">
-				Please enter a positive integer in each field !
-			</div>
 		</aside>
+
 	</div>
 
 	<!-- Section: items decription and review (angular.js)
 	======================================================================================================= -->
 
-	<section data-ng-app="items" class="jumbotron row">
+	<section data-ng-app="items" class="jumbotron row" id="reviewSection">
 		<h2> Reviews of items </h2>
 
 		<div data-ng-controller="ItemsController as items">
@@ -160,37 +163,36 @@
 
 				<ul class="nav nav-tabs">
 					<li data-ng-class="{active : panel.isSelected(1)}">
-						<a href data-ng-click="panel.selectTab(1)"> Description</a>
+						<a href="" data-ng-click="panel.selectTab(1)"> Description</a>
 					</li>
 					<li data-ng-class="{active : panel.isSelected(2)}">
-						<a href data-ng-click="panel.selectTab(2)"> Specifications</a>
+						<a href="" data-ng-click="panel.selectTab(2)"> Specifications</a>
 					</li>
 					<li data-ng-class="{active : panel.isSelected(3)}">
-						<a href data-ng-click="panel.selectTab(3)"> Review</a>
+						<a href="" data-ng-click="panel.selectTab(3)"> Review</a>
 					</li>
 				</ul>
-				
+
+
 				<div class="panel row" data-ng-show="panel.isSelected(1)">
-					<h4> Description </h4>
-					<hr>
-					<p class="col-sm-6"><img data-ng-src="{{product.images}}" /> </p>
-					<p class="col-sm-6"> {{product.name}} <em class="pull-right"> {{product.price | currency:'£'}} </em></p>
+					<p class="col-sm-8"> {{product.name}} <em class="pull-right"> {{product.price | currency:'£'}} </em></p>
+					<p class="col-sm-4"><img class="img-responsive img-rounded" src="javascript:void(0)" alt="milkImages" data-ng-src="{{product.images}}" /> </p>
 				</div>
-				
+
 				<div class="panel row" data-ng-show="panel.isSelected(2)">
-					<h4> Specifications </h4>
-					<hr>
-					<blockquote> {{product.description}} <small class="pull-right">Wikipedia</small> </blockquote>
+					<blockquote class="col-sm-8"> {{product.description}}
+						<br> <small class="pull-right">Wikipedia</small> </blockquote>
+					<p class="col-sm-4"><img class="img-responsive img-rounded" src="javascript:void(0)" alt="ButterImages" data-ng-src="{{product.images}}" /> </p>
 				</div>
-				
+
 				<div class="panel row" data-ng-show="panel.isSelected(3)">
+					
+				<div class="col-sm-8">
 
 					<ul>
-						<h4>Reviews</h4>
 						<li data-ng-repeat="review in product.reviews">
 							<blockquote>
-								<strong>{{review.note}} /10</strong>
-								{{review.body}}
+								<strong>{{review.note}} /10</strong> {{review.body}}
 								<cite class="clearfix">-{{review.author}}</cite>
 							</blockquote>
 						</li>
@@ -201,43 +203,46 @@
 
 						<!--  Live Preview -->
 						<blockquote>
-							<strong>{{reviewCtrl.review.note}}</strong>
-							{{reviewCtrl.review.body}}
+							<strong>{{reviewCtrl.review.note}}</strong> {{reviewCtrl.review.body}}
 							<cite class="clearfix">-{{reviewCtrl.review.author}} <!--on <date> {{review.createdOn | date}} </date>--></cite>
 						</blockquote>
-						
+
 						<!--  Review Form -->
 						<h4>Submit a Review</h4>
 						<fieldset class="form-group">
 							<select data-ng-model="reviewCtrl.review.note" class="form-control" title="Note" required>
 								<option value="">Rate this product</option>
-								<option value="1/10">1/10</option>
-								<option value="2/10">2/10</option>
-								<option value="3/10">3/10</option>
-								<option value="4/10">4/10</option>
-								<option value="5/10">5/10</option>
-								<option value="6/10">6/10</option>
-								<option value="7/10">7/10</option>
-								<option value="8/10">8/10</option>
-								<option value="9/10">9/10</option>
-								<option value="10/10">10/10</option>
+								<option value="1">1/10</option>
+								<option value="2">2/10</option>
+								<option value="3">3/10</option>
+								<option value="4">4/10</option>
+								<option value="5">5/10</option>
+								<option value="6">6/10</option>
+								<option value="7">7/10</option>
+								<option value="8">8/10</option>
+								<option value="9">9/10</option>
+								<option value="10">10/10</option>
 							</select>
 						</fieldset>
-						
+
 						<fieldset class="form-group">
 							<textarea data-ng-model="reviewCtrl.review.body" class="form-control" placeholder="Write a short review of the product..." title="Review" required></textarea>
 						</fieldset>
-						
+
 						<fieldset class="form-group">
 							<input data-ng-model="reviewCtrl.review.author" type="email" class="form-control" placeholder="johnDoe@example.org" title="Email" required/>
 						</fieldset>
-						
+
 						<fieldset class="form-group">
-							<input type="submit" class="btn btn-primary pull-right" value="Submit Review"/>
+							<input type="submit" class="btn btn-primary btn-sm pull-right" value="Submit Review" />
 						</fieldset>
 					</form>
-						
-						
+					
+				</div>
+					
+					<p class="col-sm-4"><img class="img-responsive img-rounded" src="javascript:void(0)" alt="BreadImages" data-ng-src="{{product.images}}" /> </p>
+
+
 
 				</div>
 			</div>
