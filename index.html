@@ -49,7 +49,7 @@
 				</ul>
 			</div>
 		</nav>
-		
+
 		<!--
 		<div class="jumbotron row col-sm-12" id="mainTitle">
 			<h1> Your online shopping cart </h1>
@@ -80,47 +80,46 @@
 			<span class="glyphicon glyphicon-chevron-right"></span></a>
 	</div>
 
-	<div class="jumbotron row">
-
-		<!-- Section: Available products
+	<!-- Section: Available products
 		======================================================================================================= -->
 
+	<div class="jumbotron row">
 		<section id="product" class="col-sm-7">
 			<h2> Available products</h2>
 			<hr>
-					
+
 			<div class="row">
-			<ul class="clear">
-				<li data-id="1" class="col-sm-4">
-					<a href="">
-						<img class="img-responsive img-rounded" src="images/Milk.jpg" alt="Milk bottle">
-						<h3>Milk</h3>
-						<h4>1.15</h4>
-					</a>
-				</li>				
-				<li data-id="2" class="col-sm-4">
-					<a href="">
-						<img class="img-responsive img-rounded" src="images/Butter.jpg" alt="Butter">
-						<h3>Butter</h3>
-						<h4>0.80</h4>
-					</a>
-				</li>
-				<li data-id="3" class="col-sm-4">
-					<a href="">
-						<img class="img-responsive img-rounded" src="images/Bread.jpg" alt="Bread">
-						<h3>Bread</h3>
-						<h4>1.00</h4>
-					</a>
-				</li>
-			</ul>
+				<ul class="clear">
+					<li data-id="1" class="col-sm-4">
+						<a href="">
+							<img class="img-responsive img-rounded" src="images/Milk.jpg" alt="Milk bottle">
+							<h3>Milk</h3>
+							<h4>1.15</h4>
+						</a>
+					</li>
+					<li data-id="2" class="col-sm-4">
+						<a href="">
+							<img class="img-responsive img-rounded" src="images/Butter.jpg" alt="Butter">
+							<h3>Butter</h3>
+							<h4>0.80</h4>
+						</a>
+					</li>
+					<li data-id="3" class="col-sm-4">
+						<a href="">
+							<img class="img-responsive img-rounded" src="images/Bread.jpg" alt="Bread">
+							<h3>Bread</h3>
+							<h4>1.00</h4>
+						</a>
+					</li>
+				</ul>
 			</div>
-			
+
 			<div class="row">
-			<h3>
+				<h3>
 				Drag items toward the basket to buy them ! <span class="glyphicon glyphicon-share"></span>
 			</h3>
 			</div>
-			
+
 		</section>
 
 		<!-- Aside: Basket
@@ -141,46 +140,105 @@
 					<button type="button" id="checkout" class="btn btn-sm btn-primary col-sm-offset-2 col-sm-3" data-toggle="modal" data-target="#toCheckout">Checkout</button>
 					<button type="reset" id="clear" class="btn btn-sm btn-warning col-sm-offset-2 col-sm-3 col-sm-offset-2">Clear</button>
 				</div>
-				
+
 			</div>
-			
-			<div class="alert alert-info fade in row col-sm-12" id="fieldCheck"> 
+
+			<div class="alert alert-info fade in row col-sm-12" id="fieldCheck">
 				Please enter a positive integer in each field !
 			</div>
-			
 		</aside>
-
 	</div>
-	
-	<!-- Section: reviews in real time (angular.js)
-======================================================================================================= -->
+
+	<!-- Section: items decription and review (angular.js)
+	======================================================================================================= -->
 
 	<section data-ng-app="items" class="jumbotron row">
 		<h2> Reviews of items </h2>
 
 		<div data-ng-controller="ItemsController as items">
-			<div data-ng-repeat="product in items.products">
+			<div data-ng-repeat="product in items.products" data-ng-controller="PanelController as panel">
 
 				<ul class="nav nav-tabs">
-					<li><a href data-ng-click="tab = 1"> Description</a></li>
-					<li><a href data-ng-click="tab = 2"> Specifications</a></li>
-					<li><a href data-ng-click="tab = 3"> Review</a></li>
+					<li data-ng-class="{active : panel.isSelected(1)}">
+						<a href data-ng-click="panel.selectTab(1)"> Description</a>
+					</li>
+					<li data-ng-class="{active : panel.isSelected(2)}">
+						<a href data-ng-click="panel.selectTab(2)"> Specifications</a>
+					</li>
+					<li data-ng-class="{active : panel.isSelected(3)}">
+						<a href data-ng-click="panel.selectTab(3)"> Review</a>
+					</li>
 				</ul>
-				<div class="panel row" data-ng-show="tab === 1">
+				
+				<div class="panel row" data-ng-show="panel.isSelected(1)">
 					<h4> Description </h4>
 					<hr>
 					<p class="col-sm-6"><img data-ng-src="{{product.images}}" /> </p>
 					<p class="col-sm-6"> {{product.name}} <em class="pull-right"> {{product.price | currency:'£'}} </em></p>
 				</div>
-				<div class="panel row" data-ng-show="tab === 2">
+				
+				<div class="panel row" data-ng-show="panel.isSelected(2)">
 					<h4> Specifications </h4>
 					<hr>
-					<blockquote> This is a specification </blockquote>
+					<blockquote> {{product.description}} <small class="pull-right">Wikipedia</small> </blockquote>
 				</div>
-				<div class="panel row" data-ng-show="tab === 3">
-					<h4> Reviews </h4>
-					<hr>
-					<blockquote> This is a review </blockquote>
+				
+				<div class="panel row" data-ng-show="panel.isSelected(3)">
+
+					<ul>
+						<h4>Reviews</h4>
+						<li data-ng-repeat="review in product.reviews">
+							<blockquote>
+								<strong>{{review.note}} /10</strong>
+								{{review.body}}
+								<cite class="clearfix">-{{review.author}}</cite>
+							</blockquote>
+						</li>
+					</ul>
+
+
+					<form name="reviewForm" data-ng-controller="ReviewController as reviewCtrl" data-ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)" novalidate>
+
+						<!--  Live Preview -->
+						<blockquote>
+							<strong>{{reviewCtrl.review.note}}</strong>
+							{{reviewCtrl.review.body}}
+							<cite class="clearfix">-{{reviewCtrl.review.author}} <!--on <date> {{review.createdOn | date}} </date>--></cite>
+						</blockquote>
+						
+						<!--  Review Form -->
+						<h4>Submit a Review</h4>
+						<fieldset class="form-group">
+							<select data-ng-model="reviewCtrl.review.note" class="form-control" title="Note" required>
+								<option value="">Rate this product</option>
+								<option value="1/10">1/10</option>
+								<option value="2/10">2/10</option>
+								<option value="3/10">3/10</option>
+								<option value="4/10">4/10</option>
+								<option value="5/10">5/10</option>
+								<option value="6/10">6/10</option>
+								<option value="7/10">7/10</option>
+								<option value="8/10">8/10</option>
+								<option value="9/10">9/10</option>
+								<option value="10/10">10/10</option>
+							</select>
+						</fieldset>
+						
+						<fieldset class="form-group">
+							<textarea data-ng-model="reviewCtrl.review.body" class="form-control" placeholder="Write a short review of the product..." title="Review" required></textarea>
+						</fieldset>
+						
+						<fieldset class="form-group">
+							<input data-ng-model="reviewCtrl.review.author" type="email" class="form-control" placeholder="johnDoe@example.org" title="Email" required/>
+						</fieldset>
+						
+						<fieldset class="form-group">
+							<input type="submit" class="btn btn-primary pull-right" value="Submit Review"/>
+						</fieldset>
+					</form>
+						
+						
+
 				</div>
 			</div>
 		</div>
@@ -252,13 +310,15 @@
 						</tbody>
 					</table>
 				</div>
-				
+
 				<div class="modal-footer">
 					<p id="totalAll">
-						<span class="pull-left"> <strong>Amount to pay: </strong> </span> <span> </span> <br>
-						<span class="pull-left"> <strong>Today you saved </strong> </span> <span> </span> <br>
+						<span class="pull-left"> <strong>Amount to pay: </strong> </span> <span> </span>
+						<br>
+						<span class="pull-left"> <strong>Today you saved </strong> </span> <span> </span>
+						<br>
 					</p>
-					
+
 					<button type="button" class="btn btn-primary" data-dismiss="modal" id="reloadPage">Proceed to payment</button>
 					<button type="button" class="btn btn-warning" data-dismiss="modal">Update basket</button>
 				</div>
@@ -268,7 +328,7 @@
 	</div>
 
 	<!-- Footer: links
-		======================================================================================================= -->
+	======================================================================================================= -->
 
 	<script src="http://code.jquery.com/jquery-2.2.3.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
