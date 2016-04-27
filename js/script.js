@@ -52,10 +52,11 @@ $(function () {
 		containment: '.container',
 		snap: 'basket',
 		helper: 'clone',
+		zIndex: 100,
 
 		drag: function () {
 			$(this).addClass("active");
-			$(this).closest("#product").addClass("active");
+			$(this).closest("#product").addClass("active"); 
 		},
 
 		stop: function () {

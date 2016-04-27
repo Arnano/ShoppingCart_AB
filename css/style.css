@@ -129,6 +129,12 @@ li {
 	text-align: center;
 }
 
+#sidebar {
+	border: solid 1px lightgray;
+	border-radius: 10px;
+	background-color: white;
+}
+
 #sidebar .basket {
 	width: 100%;
 	min-height: 190px;
