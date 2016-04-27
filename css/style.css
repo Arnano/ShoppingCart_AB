@@ -79,6 +79,17 @@ img {
 	height: auto;
 }
 
+
+.carousel-caption {
+	z-index: 100;
+	position: absolute;
+	top: 20%;
+}
+
+.jumbotron.carousel-caption{
+	background: none;
+}
+
 .carousel-indicators li {	
 	background-color: #999;
 	background-color: rgba(70,70,70,.25);
@@ -88,12 +99,24 @@ img {
 	background-color: #444;
 }
 
+.carousel-inner {
+	height: 400px;
+}
+
+.carousel-inner img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	min-height: 400px;
+}
+
 h2, h3 {
 	text-align: center;
 }
 
 .jumbotron {
 	background: rgba(255, 255, 255, 0.5);
+	margin-bottom: 0;
 }
 
 li {

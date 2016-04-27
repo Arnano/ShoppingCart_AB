@@ -73,18 +73,18 @@ $(function () {
 
 		drop: function (event, ui) {
 
-			var basket = $(this),
-				move = ui.draggable,
-				itemId = basket.find("ul li[data-id='" + move.attr("data-id") + "']");
+			var shopCart = $(this),
+				theProduct = ui.draggable,
+				itemId = shopCart.find("ul li[data-id='" + theProduct.attr("data-id") + "']");
 
 			if (itemId.html() != null) {
 				itemId.find("input").val(parseInt(itemId.find("input").val()) + 1);
 			} else {
-				addBasket(basket, move);
-				move.find("input").val(parseInt(move.find("input").val()) + 1);
+				addToBasket(shopCart, theProduct);
+				theProduct.find("input").val(parseInt(theProduct.find("input").val()) + 1);
 			}
 
-			verifyInput(); // We also verify the validity of the field on drop
+			verifyInput();
 
 		}
 	});
@@ -94,10 +94,11 @@ $(function () {
 
 	// === Function to add a product to the basket
 
-	function addBasket(basket, move) {
+	function addToBasket(shopCart, theProduct) {
 
-		basket.find("ul").append('<li data-id="' + move.attr("data-id") + '" class="form-group row">' + '<div class="col-sm-3">' +
-			'<input class="count form-control input-sm" value="1" type="number" min="1" step="1">' + '</div>' + '<span class="name col-sm-5">' + move.find("h3").html() + '</span>' + '<span class="price col-sm-1">' + move.find("h4").html() + '</span>' + '<span class="col-sm-1">&pound;</span>' + '<button class="delete pull-right"><span class="glyphicon glyphicon-remove" style="color:red"></span> </button>');
+		shopCart.find("ul").append('<li data-id="' + theProduct.attr("data-id") + '" class="form-group row">' + 
+			'<div class="col-xs-4 col-sm-3">' +
+			'<input class="count form-control input-sm" value="1" type="number" min="1" step="1" style=" vertical-align: middle;">' + '</div>' + '<span class="name col-xs-2 col-sm-2" style=" vertical-align: middle;">' + theProduct.find("h3").html() + '</span>' + '<span class="price col-xs-1 col-sm-1" style=" vertical-align: middle;">' + theProduct.find("h4 span:eq(1)").html() + '</span>' + '<span class="col-xs-6 col-sm-4" style=" vertical-align: middle;">&pound; / per unit</span>' + '<button class="delete btn btn-sm btn-secondary pull-right col-xs-2" style=" vertical-align: middle;"><i class="fa fa-times" title="Delete" aria-hidden="true" style="color : red"></i></button>');
 
 
 		if (typeof $('.basket_list ul li') !== "undefined") {
@@ -221,7 +222,7 @@ $(function () {
 			discountMilkNumber = 0;
 			priceMilk = 1.15;
 		} else if (numberMilk % 3 === 0) { // Add a milk in the basket for free when user select multiple of 3
-			numberMilk++;
+			numberMilk += 1;
 
 			if (numberMilk % 4 === 0) { // Main condition to check if the user is eligible for a discount
 				discountMilkNumber = numberMilk / 4;
@@ -282,19 +283,19 @@ $(function () {
 
 		$('#checkoutModal tr[data-id="m"] td:eq(0)').replaceWith('<td> Milk </td>');
 		$('#checkoutModal tr[data-id="m"] td:eq(1)').replaceWith('<td>' + numberMilk + '</td>');
-		$('#checkoutModal tr[data-id="m"] td:eq(2)').replaceWith('<td> &pound; ' + priceMilk + '</td>');
+		$('#checkoutModal tr[data-id="m"] td:eq(2)').replaceWith('<td> &pound; ' + priceMilk.toFixed(2) + '</td>');
 		$('#checkoutModal tr[data-id="m"] td:eq(3)').replaceWith('<td> &pound; ' + (priceMilk * numberMilk).toFixed(2) + '</td>');
 		$('#checkoutModal tr[data-id="m"] td:eq(4)').replaceWith('<td> &pound; ' + (priceDiscountedMilk).toFixed(2) + '</td>');
 
 		$('#checkoutModal tr[data-id="bu"] td:eq(0)').replaceWith('<td> Butter </td>');
 		$('#checkoutModal tr[data-id="bu"] td:eq(1)').replaceWith('<td>' + numberButter + '</td>');
-		$('#checkoutModal tr[data-id="bu"] td:eq(2)').replaceWith('<td> &pound; ' + priceButter + '</td>');
+		$('#checkoutModal tr[data-id="bu"] td:eq(2)').replaceWith('<td> &pound; ' + priceButter.toFixed(2) + '</td>');
 		$('#checkoutModal tr[data-id="bu"] td:eq(3)').replaceWith('<td> &pound; ' + (priceButter * numberButter).toFixed(2) + '</td>');
 		$('#checkoutModal tr[data-id="bu"] td:eq(4)').replaceWith('<td> &pound; ' + (priceButter * numberButter).toFixed(2) + '</td>');
 
 		$('#checkoutModal tr[data-id="br"] td:eq(0)').replaceWith('<td> Bread </td>');
 		$('#checkoutModal tr[data-id="br"] td:eq(1)').replaceWith('<td>' + numberBread + '</td>');
-		$('#checkoutModal tr[data-id="br"] td:eq(2)').replaceWith('<td> &pound; ' + priceBread + '</td>');
+		$('#checkoutModal tr[data-id="br"] td:eq(2)').replaceWith('<td> &pound; ' + priceBread.toFixed(2) + '</td>');
 		$('#checkoutModal tr[data-id="br"] td:eq(3)').replaceWith('<td> &pound; ' + (priceBread * numberBread).toFixed(2) + '</td>');
 		$('#checkoutModal tr[data-id="br"] td:eq(4)').replaceWith('<td> &pound; ' + (priceDiscountedBread).toFixed(2) + '</td>');
 
@@ -373,9 +374,9 @@ $(function () {
 		emptyBasket();
 	});
 
-	// === We enable the help popover on button mouseover
+	// === We enable the help tooltips on button mouseover
 
-	$("[data-toggle = 'popover']").popover();
+	$('[data-toggle="tooltip"]').tooltip()
 
 	// === For the purpose of this program, the payment button reload entirely the page.
 
