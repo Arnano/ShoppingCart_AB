@@ -238,7 +238,7 @@ $(function () {
 		}
 
 		// === Conditions on the number of butter to get the number of bread discount
-
+			
 		if (isNaN(numberButter)) { // Set the initial values if user doesn't want butter
 			numberButter = 0;
 			discountBreadNumber = 0;
@@ -247,24 +247,25 @@ $(function () {
 			if (numberButter >= offerButter) {
 				if (numberButter % offerButter === 0) {
 					discountBreadNumber = numberButter - (numberButter / offerButter);
-
 				} else if (numberButter % offerButter !== 0) {
 					discountBreadNumber = (numberButter - 1) - ((numberButter - 1) / offerButter);
-				}
-
-			} else { // In case user select less than 2 butters
+				}	
+			} 
+			else { // In case user select less than 2 butters
 				discountBreadNumber = 0;
 			}
 		}
 
 		// === We check if there is any bread in the basket
-
+		
 		if (isNaN(numberBread)) { // Set the initial values if user doesn't want bread
 			numberBread = 0;
 			priceBread = 1.00;
-		} else if (discountBreadNumber > numberBread) { // In case user buys lot of butters and only a few bread
-			discountBreadNumber = numberBread; // We set the max value of discounted bread to the number of bread bought
+			discountBreadNumber = 0;
+		} else if(discountBreadNumber > numberBread) {
+			discountBreadNumber = numberBread;
 		}
+
 
 		// === We compute the totals (normal, discount and savings) (we apply Math.round here to keep the type as number)
 
