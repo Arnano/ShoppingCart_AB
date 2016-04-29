@@ -9,16 +9,6 @@ $(function () {
 	$('#help').hide();
 	$('#clear').hide();
 
-	// === Adding small effect on hover for the buttons
-
-	$('.btn').on('mouseover', function () {
-		$(this).css('box-shadow', '5px 5px 5px black');
-	});
-
-	$('.btn').on('mouseout', function () {
-		$(this).css('box-shadow', 'none');
-	});
-
 	// === We desactivate the image links on user click
 
 	$('.clear a').on('click', function (e) {
@@ -99,7 +89,10 @@ $(function () {
 
 		shopCart.find("ul").append('<li data-id="' + theProduct.attr("data-id") + '" class="form-group row">' + 
 			'<div class="col-xs-4 col-sm-3">' +
-			'<input class="count form-control input-sm" value="1" type="number" min="1" step="1" style=" vertical-align: middle;">' + '</div>' + '<span class="name col-xs-2 col-sm-2" style=" vertical-align: middle;">' + theProduct.find("h3").html() + '</span>' + '<span class="price col-xs-1 col-sm-1" style=" vertical-align: middle;">' + theProduct.find("h4 span:eq(1)").html() + '</span>' + '<span class="col-xs-6 col-sm-4" style=" vertical-align: middle;">&pound; / per unit</span>' + '<button class="delete btn btn-sm btn-secondary pull-right col-xs-2" style=" vertical-align: middle;"><i class="fa fa-times" title="Delete" aria-hidden="true" style="color : red"></i></button>');
+								   '<input class="count form-control input-sm" value="1" type="number" min="1" step="1" style=" vertical-align: middle;">' + '</div>' + '<span class="name col-xs-2 col-sm-2" style=" vertical-align: middle;">' + theProduct.find("h3").html() + '</span>' + '<span class="price col-xs-1 col-sm-1" style=" vertical-align: middle;">' + theProduct.find("h4 span:eq(1)").html() + '</span>' + '<span class="col-xs-6 col-sm-4" style=" vertical-align: middle;">&pound; / per unit</span>' + '<button type="button" class="delete btn btn-default btn-sm btn-circle pull-right"><i class="glyphicon glyphicon-minus"></i></button>'
+								  
+								   			  
+								  );
 
 
 		if (typeof $('.basket_list ul li') !== "undefined") {
@@ -214,7 +207,9 @@ $(function () {
 			nameProductMilk = $('li[data-id="1"] .name').text(),
 			nameProductButter = $('li[data-id="2"] .name').text(),
 			nameProductBread = $('li[data-id="3"] .name').text(),
-			numberProductsAll;
+			numberProductsAll,
+			offerMilk = 4,
+			offerButter = 2;
 
 		// === Condition on the milk to get the discount 
 
@@ -222,21 +217,21 @@ $(function () {
 			numberMilk = 0;
 			discountMilkNumber = 0;
 			priceMilk = 1.15;
-		} else if (numberMilk % 3 === 0) { // Add a milk in the basket for free when user select multiple of 3
+		} else if (numberMilk % (offerMilk - 1) === 0) { // Add a milk in the basket for free when user select multiple of 3
 			numberMilk += 1;
 
-			if (numberMilk % 4 === 0) { // Main condition to check if the user is eligible for a discount
-				discountMilkNumber = numberMilk / 4;
+			if (numberMilk % offerMilk === 0) { // Main condition to check if the user is eligible for a discount
+				discountMilkNumber = numberMilk / offerMilk;
 
-			} else if (numberMilk % 4 !== 0) { // If not multiple of 4, the lower rounded value gives discounted milk num 
-				discountMilkNumber = Math.floor(numberMilk / 4); // ex: 6/4 = 1.5 -> 1 discount, 11/4 = 2.75 -> 2 discounts
+			} else if (numberMilk % offerMilk !== 0) { // If not multiple of 4, the lower rounded value gives discounted milk num 
+				discountMilkNumber = Math.floor(numberMilk / offerMilk); // ex: 6/4 = 1.5 -> 1 discount, 11/4 = 2.75 -> 2 discounts
 			}
 
-		} else if (numberMilk % 4 === 0) { // Repeat the main condition if first number is not a multiple of three
-			discountMilkNumber = numberMilk / 4;
+		} else if (numberMilk % offerMilk === 0) { // Repeat the main condition if first number is not a multiple of three
+			discountMilkNumber = numberMilk / offerMilk;
 
-		} else if (numberMilk % 4 !== 0) { // If not multiple of 4, the lower rounded value gives discounted milk num 
-			discountMilkNumber = Math.floor(numberMilk / 4);
+		} else if (numberMilk % offerMilk !== 0) { // If not multiple of 4, the lower rounded value gives discounted milk num 
+			discountMilkNumber = Math.floor(numberMilk / offerMilk);
 
 		} else { // In case user select less than 3 milks
 			discountMilkNumber = 0;
@@ -249,12 +244,12 @@ $(function () {
 			discountBreadNumber = 0;
 			priceButter = 0.80;
 		} else {
-			if (numberButter >= 2) {
-				if (numberButter % 2 === 0) {
-					discountBreadNumber = numberButter - (numberButter / 2);
+			if (numberButter >= offerButter) {
+				if (numberButter % offerButter === 0) {
+					discountBreadNumber = numberButter - (numberButter / offerButter);
 
-				} else if (numberButter % 2 !== 0) {
-					discountBreadNumber = (numberButter - 1) - ((numberButter - 1) / 2);
+				} else if (numberButter % offerButter !== 0) {
+					discountBreadNumber = (numberButter - 1) - ((numberButter - 1) / offerButter);
 				}
 
 			} else { // In case user select less than 2 butters

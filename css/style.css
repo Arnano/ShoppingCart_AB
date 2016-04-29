@@ -123,6 +123,68 @@ li {
 	list-style: none;
 	text-decoration: none;
 }
+/*
+i {
+	display: inline-block;
+	width: 100%;
+}
+*/
+
+#iconsFooter {
+	text-align: center;
+	margin-bottom: 2%;
+}
+
+#spanFoot {
+	text-align: center;
+}
+
+.icon-background {
+	color: transparent;
+	background-image: linear-gradient(to bottom, #FFFFFF, #E0E0E0);
+	border-color: #CCCCCC #CCCCCC #CCCCCC;
+	border-radius: 50%;
+	border: solid 1px #CCCCCC;
+}
+
+.btn-circle {
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	padding: 6px 0;
+	font-size: 12px;
+	line-height: 1.428571429;
+	border-radius: 15px;
+}
+.btn-circle.btn-lg {
+	width: 50px;
+	height: 50px;
+	padding: 10px 16px;
+	font-size: 18px;
+	line-height: 1.33;
+	border-radius: 25px;
+}
+.btn-circle.btn-xl {
+	width: 70px;
+	height: 70px;
+	padding: 10px 16px;
+	font-size: 24px;
+	line-height: 1.33;
+	border-radius: 35px;
+}
+
+.btn.btn-default {
+	color: #333333;
+	background-color: #FFFFFF;
+	background-image: linear-gradient(to bottom, #FFFFFF, #E0E0E0);
+	border-color: #CCCCCC #CCCCCC #CCCCCC;
+}
+.btn.btn-default:hover {
+	color: #333333;
+	background-color: #E0E0E0;
+	background-image: linear-gradient(to bottom, #E0E0E0, #E0E0E0);
+	border-color: #CCCCCC #CCCCCC #CCCCCC;
+}
 
 .basket_list ul li span {
 	vertical-align: middle;
