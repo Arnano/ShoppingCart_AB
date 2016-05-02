@@ -2,7 +2,7 @@ $(function () {
 
 	// ============================================= Improved styling on events =======================================
 	// ================================================================================================================
-
+	
 	// === Initially, the basket buttons are hiden
 
 	$('#checkout').hide();
@@ -237,8 +237,10 @@ $(function () {
 			discountMilkNumber = 0;
 		}
 
+
 		// === Conditions on the number of butter to get the number of bread discount
 			
+
 		if (isNaN(numberButter)) { // Set the initial values if user doesn't want butter
 			numberButter = 0;
 			discountBreadNumber = 0;
@@ -255,6 +257,8 @@ $(function () {
 				discountBreadNumber = 0;
 			}
 		}
+		
+
 
 		// === We check if there is any bread in the basket
 		

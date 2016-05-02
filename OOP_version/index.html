@@ -100,6 +100,7 @@
 							<h3>Milk</h3>
 							<h4><span>&pound;</span> <span>1.15</span></h4>
 						</a>
+						<button class="addCart col-xs-11"> Add to cart!</button>
 					</li>
 					<li data-id="2" class="col-xs-4 col-sm-4">
 						<a href="">
@@ -107,6 +108,7 @@
 							<h3>Butter</h3>
 							<h4><span>&pound;</span><span>0.80</span></h4>
 						</a>
+						<button class="addCart col-xs-11"> Add to cart!</button>
 					</li>
 					<li data-id="3" class="col-xs-4 col-sm-4">
 						<a href="">
@@ -114,14 +116,9 @@
 							<h3>Bread</h3>
 							<h4><span>&pound;</span><span>1.00</span></h4>
 						</a>
+						<button class="addCart col-xs-11"> Add to cart!</button>
 					</li>
 				</ul>
-			</div>
-
-			<div class="row hidden-xs col-sm-12 divDrag">
-				<h3>
-				Drag items toward the basket to buy them ! <span class="glyphicon glyphicon-share fa-fw"></span>
-			</h3>
 			</div>
 
 		</section>
@@ -135,19 +132,44 @@
 
 			<div class="basket col-sm-12">
 				<div class="basket_list col-sm-12">
-					<ul>
-					</ul>
+
+				
+				
+				<table class="table table-hover table-responsive" id="display">
+					<thead>
+						<tr>
+							<th>Product</th>
+							<th>Quantity</th>
+							<th>Price &pound;</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-id="m">
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr data-id="bu">
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr data-id="br">
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+				
 				</div>
 
-				<div class="col-sm-12">
-					<button type="button" id="checkout" class="btn btn-sm btn-primary col-sm-offset-1 col-sm-3" data-toggle="modal" data-target="#toCheckout"> Checkout </button>
-
-					<button type="reset" id="clear" class="btn btn-sm btn-warning col-sm-offset-1 col-sm-3 col-sm-offset-1">Clear</button>
-
-					<button type="button" id="help" class="btn btn-sm btn-success col-sm-offset-1 col-sm-3" data-toggle="tooltip" data-placement="bottom" title="To checkout enter a positive integer in each field !">
-						Need help ?
-					</button>
+				<div id="resTot">
+					<p>Total: <span></span></p>
+					<p>Total discounted: <span></span></p>
+					<p>Total savings: <span></span></p>
 				</div>
+
 			</div>
 		</aside>
 
@@ -247,95 +269,9 @@
 
 				</div>
 
-
-
-
 			</div>
 		</div>
 	</section>
-
-	<!-- Modal on checkout button
-		======================================================================================================= -->
-
-	<div id="toCheckout" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="titleModal modal-title">Your basket content</h4>
-				</div>
-				<div class="modal-body">
-
-					<table class="table table-hover table-responsive" id="checkoutModal">
-						<thead>
-							<tr>
-								<th>Product</th>
-								<th>Quantity</th>
-								<th>Unit price</th>
-								<th>Sub total</th>
-								<th>Sub total (discounted)</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr data-id="m">
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr data-id="bu">
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr data-id="br">
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-					</table>
-
-					<div class="updatedAlert"></div>
-
-					<table class="table table-hover table-responsive table-condesned" id="checkoutTotal">
-						<thead>
-							<tr>
-								<th>Total number items </th>
-								<th>Amount (no discount)</th>
-								<th>Amount (discounted)</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr data-id="tot">
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-
-				<div class="modal-footer">
-					<p id="totalAll">
-						<span class="pull-left"> <strong>Amount to pay: </strong> </span> <span> </span>
-						<br>
-						<span class="pull-left"> <strong>Today you saved </strong> </span> <span> </span>
-						<br>
-					</p>
-
-					<button type="button" class="btn btn-default" data-dismiss="modal" id="reloadPage">Proceed to payment</button>
-					<button type="button" class="btn btn-warning" data-dismiss="modal">Update basket</button>
-				</div>
-			</div>
-
-		</div>
-	</div>
 
 	<!-- Footer: links
 	======================================================================================================= -->
@@ -368,7 +304,6 @@
 				<i class="fa fa-circle fa-stack-2x icon-background"></i>
 				<i class="fa fa-yahoo fa-stack-1x"></i>
 			</span>
-			
 		</div>
 		
 		<span class="col-xs-12" id="spanFoot">

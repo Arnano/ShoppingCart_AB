@@ -8,6 +8,14 @@
 	-o-background-size: cover;
 }
 
+/*
+header div {
+	background-image: linear-gradient(to right, burlywood 0%, #FFFFFF 100%);
+	border: solid 1px black;
+	border-radius: 10px;
+	text-align: center;
+}*/
+
 #theheader h1, #theheader p {
 	text-align: center;
 }
@@ -25,7 +33,6 @@ a h3 {
 
 .clear a {
 	text-decoration: none;
-	max-height: 130px;
 }
 
 .table tr td {
@@ -40,10 +47,6 @@ a h3 {
 	text-align: center;
 }
 
-.clear li {
-	max-height: 130px;
-}
-
 a h4 {
 	position:relative;
 	bottom:75px;
@@ -53,6 +56,12 @@ a h4 {
 	background: rgba(0, 0, 0, 0.5);
 	color:#f3f3f3;
 	text-align: center;
+}
+
+.clear li button {
+	position: relative;
+	bottom: 50px;
+	left: 10px;
 }
 
 .basket button {
@@ -96,11 +105,6 @@ img {
 	min-height: 400px;
 }
 
-.divDrag {
-	position: relative;
-	bottom: 50px;
-}
-
 h2, h3 {
 	text-align: center;
 }
@@ -130,32 +134,6 @@ li {
 	border-color: #CCCCCC #CCCCCC #CCCCCC;
 	border-radius: 50%;
 	border: solid 1px #CCCCCC;
-}
-
-.btn-circle {
-	width: 30px;
-	height: 30px;
-	text-align: center;
-	padding: 6px 0;
-	font-size: 12px;
-	line-height: 1.428571429;
-	border-radius: 15px;
-}
-.btn-circle.btn-lg {
-	width: 50px;
-	height: 50px;
-	padding: 10px 16px;
-	font-size: 18px;
-	line-height: 1.33;
-	border-radius: 25px;
-}
-.btn-circle.btn-xl {
-	width: 70px;
-	height: 70px;
-	padding: 10px 16px;
-	font-size: 24px;
-	line-height: 1.33;
-	border-radius: 35px;
 }
 
 .btn.btn-default {
@@ -194,3 +172,4 @@ li {
 .ng-valid.ng-dirty {
 	border-color: forestgreen;
 }
+
