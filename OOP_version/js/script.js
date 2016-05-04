@@ -1,16 +1,18 @@
 $(function () {
+	
+	const PRICE_DIS_MILK = 1.15,
+		  PRICE_DIS_BREAD = 1.00;
 
-	var findMilk,
+	let findMilk,
 		findButter,
 		findBread,
 		discountMilkNumber = 0,
 		discountBreadNumber = 0,
-		priceDisMilk = 1.15,
-		priceDisBread = 1.00,
 		sum = 0,
 		sumDiscounted = 0,
 		savings = 0,
 		products = {product: []};
+		
 
 	// ============================================= Improved styling on events =======================================
 	// ================================================================================================================
@@ -41,7 +43,7 @@ $(function () {
 	// ================================================================================================================
 
 	function findProduct(name, product) {
-		for (var i = 0; i < product.length; i++) {
+		for (let i = 0, thisLength = product.length; i < thisLength; i++) {
 			if (product[i].id === name) {
 				return product[i];
 			}
@@ -49,10 +51,12 @@ $(function () {
 	}
 
 	function addToCart(products, name, price) {
-
-		for (var i = 0; i < products.product.length; i++) {
-			if (products.product[i].id === name) {
-				products.product[i].quantity += 1;
+		
+		let theProducts = products.product;
+		
+		for (let i = 0, theLength = products.product.length; i < theLength; i++) {		
+			if (theProducts[i].id === name) {
+				theProducts[i].quantity += 1;
 				return; // So that we don't push items if they exist.
 			}
 		}
@@ -67,18 +71,23 @@ $(function () {
 
 	function checkDiscount() {
 
-		var isMilk = false,
+		const OFFER_MILK = 4,
+			  OFFER_BUTTER = 2;
+		
+		let isMilk = false,
 			isButter = false,
-			isBread = false;
+			isBread = false,
+			theProducts = products.product,
+			theLength = products.product.length;
 
 		// Permits to check if product is present
-
-		for (var i = 0; i < products.product.length; i++) {
-			if (products.product[i].id === "Milk") {
+		
+		for (let i = 0; i < theLength; i++) {
+			if (theProducts[i].id === "Milk") {
 				isMilk = true;
-			} else if (products.product[i].id === "Butter") {
+			} else if (theProducts[i].id === "Butter") {
 				isButter = true;
-			} else if (products.product[i].id === "Bread") {
+			} else if (theProducts[i].id === "Bread") {
 				isBread = true;
 			}
 		}
@@ -87,31 +96,31 @@ $(function () {
 
 		if (isMilk) {
 			findMilk = findProduct("Milk", products.product); // we access attributes values of the found item
-			if (findMilk.quantity % 4 === 0) {
-				discountMilkNumber = findMilk.quantity / 4;
-			} else if (findMilk.quantity % 4 !== 0) {
-				discountMilkNumber = Math.floor(findMilk.quantity / 4);
+			if (findMilk.quantity % OFFER_MILK === 0) {
+				discountMilkNumber = findMilk.quantity / OFFER_MILK;
+			} else if (findMilk.quantity % OFFER_MILK !== 0) {
+				discountMilkNumber = Math.floor(findMilk.quantity / OFFER_MILK);
 			} else {
 				discountMilkNumber = 0;
 			}
 
-			$('#display tbody tr[data-id="m"] td:eq(0)').replaceWith('<td>' + findMilk.quantity + '</td>');
-			$('#display tbody tr[data-id="m"] td:eq(1)').replaceWith('<td>' + findMilk.id + '</td>');
-			$('#display tbody tr[data-id="m"] td:eq(2)').replaceWith('<td>' + Math.round((findMilk.cost * findMilk.quantity)*1e2)/1e2 + '</td>');
+			$('#display tbody tr[data-id="m"] td:eq(0)').replaceWith(`<td> ${findMilk.quantity} </td>`);
+			$('#display tbody tr[data-id="m"] td:eq(1)').replaceWith(`<td> ${findMilk.id} </td>`);
+			$('#display tbody tr[data-id="m"] td:eq(2)').replaceWith(`<td> ${Math.round((findMilk.cost * findMilk.quantity)*1e2)/1e2}  </td>`);
 		}
 
 		if (isButter) {
 			findButter = findProduct("Butter", products.product);
-			$('#display tbody tr[data-id="bu"] td:eq(0)').replaceWith('<td>' + findButter.quantity + '</td>');
-			$('#display tbody tr[data-id="bu"] td:eq(1)').replaceWith('<td>' + findButter.id + '</td>');
-			$('#display tbody tr[data-id="bu"] td:eq(2)').replaceWith('<td>' + Math.round((findButter.cost * findButter.quantity)*1e2)/1e2 + '</td>');
+			$('#display tbody tr[data-id="bu"] td:eq(0)').replaceWith(`<td> ${findButter.quantity} </td>`);
+			$('#display tbody tr[data-id="bu"] td:eq(1)').replaceWith(`<td> ${findButter.id} </td>`);
+			$('#display tbody tr[data-id="bu"] td:eq(2)').replaceWith(`<td> ${Math.round((findButter.cost * findButter.quantity)*1e2)/1e2} </td>`);
 		}
 
 		if (isBread) {
 			findBread = findProduct("Bread", products.product);
-			$('#display tbody tr[data-id="br"] td:eq(0)').replaceWith('<td>' + findBread.quantity + '</td>');
-			$('#display tbody tr[data-id="br"] td:eq(1)').replaceWith('<td>' + findBread.id + '</td>');
-			$('#display tbody tr[data-id="br"] td:eq(2)').replaceWith('<td>' + Math.round((findBread.cost * findBread.quantity)*1e2)/1e2 + '</td>');
+			$('#display tbody tr[data-id="br"] td:eq(0)').replaceWith(`<td> ${findBread.quantity} </td>`);
+			$('#display tbody tr[data-id="br"] td:eq(1)').replaceWith(`<td> ${findBread.id} </td>`);
+			$('#display tbody tr[data-id="br"] td:eq(2)').replaceWith(`<td> ${Math.round((findBread.cost * findBread.quantity)*1e2)/1e2}</td>`);
 		}
 
 		// If there is butter and bread, check for discount
@@ -120,11 +129,11 @@ $(function () {
 			findButter = findProduct("Butter", products.product);
 			findBread = findProduct("Bread", products.product);
 
-			if (findButter.quantity >= 2) {
-				if (findButter.quantity % 2 === 0) {
-					discountBreadNumber = findButter.quantity - findButter.quantity / 2;
-				} else if (findButter.quantity % 2 !== 0) {
-					discountBreadNumber = (findButter.quantity - 1) - ((findButter.quantity - 1) / 2);
+			if (findButter.quantity >= OFFER_BUTTER) {
+				if (findButter.quantity % OFFER_BUTTER === 0) {
+					discountBreadNumber = findButter.quantity - findButter.quantity / OFFER_BUTTER;
+				} else if (findButter.quantity % OFFER_BUTTER !== 0) {
+					discountBreadNumber = (findButter.quantity - 1) - ((findButter.quantity - 1) / OFFER_BUTTER);
 				}
 			}
 
@@ -139,7 +148,7 @@ $(function () {
 
 	function emptyBasket() {
 
-		for (var i = 0; i < products.product.length; i++) {
+		for (let i = 0, theLength = products.product.length; i < theLength; i++) {
 			delete products.product[i];
 		}
 
@@ -152,7 +161,7 @@ $(function () {
 	// ==================================================================================================================
 
 	$('.addCart').on('click', function () {
-		var itemName = $(this).parent().find('h3').html(),
+		let itemName = $(this).parent().find('h3').html(),
 			itemPrice = $(this).parent().find('h4 span:eq(1)').html(),
 			roundedSum,
 			roundedSumDiscounted;
@@ -170,21 +179,21 @@ $(function () {
 			discountBreadNumber = 0;
 		}
 
-		sumDiscounted = roundedSum - (discountMilkNumber * priceDisMilk + discountBreadNumber * priceDisBread / 2);
+		sumDiscounted = roundedSum - (discountMilkNumber * PRICE_DIS_MILK + discountBreadNumber * PRICE_DIS_BREAD / 2);
 		roundedSumDiscounted = Math.round(sumDiscounted * 1e2) / 1e2;
 		
 		savings = Math.round((roundedSum - roundedSumDiscounted) * 1e2) / 1e2;
 
-		$('#resTot p:eq(0) span').replaceWith('<span class="pull-right"> &pound; ' + roundedSum + '</span>');
-		$('#resTot p:eq(1) span').replaceWith('<span class="pull-right">&pound; ' + roundedSumDiscounted + '</span>');
-		$('#resTot p:eq(2) span').replaceWith('<span class="pull-right">&pound; ' + savings + '</span>');
+		$('#resTot p:eq(0) span').replaceWith(`<span class="pull-right"> &pound;  ${roundedSum} </span>`);
+		$('#resTot p:eq(1) span').replaceWith(`<span class="pull-right">&pound;  ${roundedSumDiscounted} </span>`);
+		$('#resTot p:eq(2) span').replaceWith(`<span class="pull-right">&pound; ${savings} </span>`);
 	});
 	
 	// Smooth scrolling
 	
 	$('header a').on('click', function (e) {
 		e.preventDefault();
-		var hash = this.hash;
+		let hash = this.hash;
 
 		$('html, body').animate({
 			scrollTop: $(this.hash).offset().top

@@ -1,5 +1,5 @@
 $(function () {
-
+	
 	// ============================================= Improved styling on events =======================================
 	// ================================================================================================================
 	
@@ -190,8 +190,11 @@ $(function () {
 	function applyDiscount() {
 
 		// === Local variables to help clarifying the conditions for discount
+		
+		const OFFER_MILK = 4,
+			  OFFER_BUTTER = 2;
 
-		var discountMilkNumber,
+		let discountMilkNumber,
 			discountBreadNumber,
 			numberMilk = parseInt($('li[data-id="1"] .count').val()),
 			numberButter = parseInt($('li[data-id="2"] .count').val()),
@@ -207,9 +210,7 @@ $(function () {
 			nameProductMilk = $('li[data-id="1"] .name').text(),
 			nameProductButter = $('li[data-id="2"] .name').text(),
 			nameProductBread = $('li[data-id="3"] .name').text(),
-			numberProductsAll,
-			offerMilk = 4,
-			offerButter = 2;
+			numberProductsAll;
 
 		// === Condition on the milk to get the discount 
 
@@ -217,21 +218,21 @@ $(function () {
 			numberMilk = 0;
 			discountMilkNumber = 0;
 			priceMilk = 1.15;
-		} else if (numberMilk % (offerMilk - 1) === 0) { // Add a milk in the basket for free when user select multiple of 3
+		} else if (numberMilk % (OFFER_MILK - 1) === 0) { // Add a milk in the basket for free when user select multiple of 3
 			numberMilk += 1;
 
-			if (numberMilk % offerMilk === 0) { // Main condition to check if the user is eligible for a discount
-				discountMilkNumber = numberMilk / offerMilk;
+			if (numberMilk % OFFER_MILK === 0) { // Main condition to check if the user is eligible for a discount
+				discountMilkNumber = numberMilk / OFFER_MILK;
 
-			} else if (numberMilk % offerMilk !== 0) { // If not multiple of 4, the lower rounded value gives discounted milk num 
-				discountMilkNumber = Math.floor(numberMilk / offerMilk); // ex: 6/4 = 1.5 -> 1 discount, 11/4 = 2.75 -> 2 discounts
+			} else if (numberMilk % OFFER_MILK !== 0) { // If not multiple of 4, the lower rounded value gives discounted milk num 
+				discountMilkNumber = Math.floor(numberMilk / OFFER_MILK); // ex: 6/4 = 1.5 -> 1 discount, 11/4 = 2.75 -> 2 discounts
 			}
 
-		} else if (numberMilk % offerMilk === 0) { // Repeat the main condition if first number is not a multiple of three
-			discountMilkNumber = numberMilk / offerMilk;
+		} else if (numberMilk % OFFER_MILK === 0) { // Repeat the main condition if first number is not a multiple of three
+			discountMilkNumber = numberMilk / OFFER_MILK;
 
-		} else if (numberMilk % offerMilk !== 0) { // If not multiple of 4, the lower rounded value gives discounted milk num 
-			discountMilkNumber = Math.floor(numberMilk / offerMilk);
+		} else if (numberMilk % OFFER_MILK !== 0) { // If not multiple of 4, the lower rounded value gives discounted milk num 
+			discountMilkNumber = Math.floor(numberMilk / OFFER_MILK);
 
 		} else { // In case user select less than 3 milks
 			discountMilkNumber = 0;
@@ -246,11 +247,11 @@ $(function () {
 			discountBreadNumber = 0;
 			priceButter = 0.80;
 		} else {
-			if (numberButter >= offerButter) {
-				if (numberButter % offerButter === 0) {
-					discountBreadNumber = numberButter - (numberButter / offerButter);
-				} else if (numberButter % offerButter !== 0) {
-					discountBreadNumber = (numberButter - 1) - ((numberButter - 1) / offerButter);
+			if (numberButter >= OFFER_BUTTER) {
+				if (numberButter % OFFER_BUTTER === 0) {
+					discountBreadNumber = numberButter - (numberButter / OFFER_BUTTER);
+				} else if (numberButter % OFFER_BUTTER !== 0) {
+					discountBreadNumber = (numberButter - 1) - ((numberButter - 1) / OFFER_BUTTER);
 				}	
 			} 
 			else { // In case user select less than 2 butters
@@ -283,40 +284,40 @@ $(function () {
 		// === Data presentation for the checkout process (we apply toFixed(2) here to convert to string for data display only) 
 
 		$('#checkoutModal tr[data-id="m"] td:eq(0)').replaceWith('<td> Milk </td>');
-		$('#checkoutModal tr[data-id="m"] td:eq(1)').replaceWith('<td>' + numberMilk + '</td>');
-		$('#checkoutModal tr[data-id="m"] td:eq(2)').replaceWith('<td> &pound; ' + priceMilk.toFixed(2) + '</td>');
-		$('#checkoutModal tr[data-id="m"] td:eq(3)').replaceWith('<td> &pound; ' + (priceMilk * numberMilk).toFixed(2) + '</td>');
-		$('#checkoutModal tr[data-id="m"] td:eq(4)').replaceWith('<td> &pound; ' + (priceDiscountedMilk).toFixed(2) + '</td>');
+		$('#checkoutModal tr[data-id="m"] td:eq(1)').replaceWith(`<td>  ${numberMilk} </td>`);
+		$('#checkoutModal tr[data-id="m"] td:eq(2)').replaceWith(`<td> &pound; ${priceMilk.toFixed(2)} </td>`);
+		$('#checkoutModal tr[data-id="m"] td:eq(3)').replaceWith(`<td> &pound; ${(priceMilk * numberMilk).toFixed(2)} </td>`);
+		$('#checkoutModal tr[data-id="m"] td:eq(4)').replaceWith(`<td> &pound; ${priceDiscountedMilk.toFixed(2)} </td>`);
 
 		$('#checkoutModal tr[data-id="bu"] td:eq(0)').replaceWith('<td> Butter </td>');
-		$('#checkoutModal tr[data-id="bu"] td:eq(1)').replaceWith('<td>' + numberButter + '</td>');
-		$('#checkoutModal tr[data-id="bu"] td:eq(2)').replaceWith('<td> &pound; ' + priceButter.toFixed(2) + '</td>');
-		$('#checkoutModal tr[data-id="bu"] td:eq(3)').replaceWith('<td> &pound; ' + (priceButter * numberButter).toFixed(2) + '</td>');
-		$('#checkoutModal tr[data-id="bu"] td:eq(4)').replaceWith('<td> &pound; ' + (priceButter * numberButter).toFixed(2) + '</td>');
+		$('#checkoutModal tr[data-id="bu"] td:eq(1)').replaceWith(`<td> ${numberButter} </td>`);
+		$('#checkoutModal tr[data-id="bu"] td:eq(2)').replaceWith(`<td> &pound; ${priceButter.toFixed(2)} </td>`);
+		$('#checkoutModal tr[data-id="bu"] td:eq(3)').replaceWith(`<td> &pound; ${(priceButter * numberButter).toFixed(2)} </td>`);
+		$('#checkoutModal tr[data-id="bu"] td:eq(4)').replaceWith(`<td> &pound; ${(priceButter * numberButter).toFixed(2)} </td>`);
 
 		$('#checkoutModal tr[data-id="br"] td:eq(0)').replaceWith('<td> Bread </td>');
-		$('#checkoutModal tr[data-id="br"] td:eq(1)').replaceWith('<td>' + numberBread + '</td>');
-		$('#checkoutModal tr[data-id="br"] td:eq(2)').replaceWith('<td> &pound; ' + priceBread.toFixed(2) + '</td>');
-		$('#checkoutModal tr[data-id="br"] td:eq(3)').replaceWith('<td> &pound; ' + (priceBread * numberBread).toFixed(2) + '</td>');
-		$('#checkoutModal tr[data-id="br"] td:eq(4)').replaceWith('<td> &pound; ' + (priceDiscountedBread).toFixed(2) + '</td>');
+		$('#checkoutModal tr[data-id="br"] td:eq(1)').replaceWith(`<td> ${numberBread} </td>`);
+		$('#checkoutModal tr[data-id="br"] td:eq(2)').replaceWith(`<td> &pound; ${priceBread.toFixed(2)} </td>`);
+		$('#checkoutModal tr[data-id="br"] td:eq(3)').replaceWith(`<td> &pound; ${(priceBread * numberBread).toFixed(2)} </td>`);
+		$('#checkoutModal tr[data-id="br"] td:eq(4)').replaceWith(`<td> &pound; ${(priceDiscountedBread).toFixed(2)} </td>`);
 
-		$('#checkoutTotal tr[data-id="tot"] td:eq(0)').replaceWith('<td>' + numberProductsAll + '</td>');
-		$('#checkoutTotal tr[data-id="tot"] td:eq(1)').replaceWith('<td> &pound; ' + (totalPrice).toFixed(2) + '</td>');
-		$('#checkoutTotal tr[data-id="tot"] td:eq(2)').replaceWith('<td> &pound; ' + (totalDiscountPrice).toFixed(2) + '</td>');
+		$('#checkoutTotal tr[data-id="tot"] td:eq(0)').replaceWith(`<td> ${numberProductsAll} </td>`);
+		$('#checkoutTotal tr[data-id="tot"] td:eq(1)').replaceWith(`<td> &pound; ${(totalPrice).toFixed(2)} </td>`);
+		$('#checkoutTotal tr[data-id="tot"] td:eq(2)').replaceWith(`<td> &pound; ${(totalDiscountPrice).toFixed(2)} </td>`);
 
 
-		$('#totalAll span:eq(1)').replaceWith('<span> <strong> &pound; ' + (totalDiscountPrice).toFixed(2) + '</strong></span>');
-		$('#totalAll span:eq(3)').replaceWith('<span> <strong> &pound; ' + (totalSavings).toFixed(2) + '</strong></span>');
+		$('#totalAll span:eq(1)').replaceWith(`<span> <strong> &pound; ${(totalDiscountPrice).toFixed(2)} </strong></span>`);
+		$('#totalAll span:eq(3)').replaceWith(`<span> <strong> &pound; ${(totalSavings).toFixed(2)} </strong></span>`);
 
 
 		// === We show the helper message for the discounts or not
 
 		if (discountMilkNumber >= 1 || discountBreadNumber >= 1) {
 
-			$('.updatedAlert').replaceWith('<div class="updatedAlert alert alert-info fade in"> You have ' + discountMilkNumber + ' free milk(s) and ' + discountBreadNumber + ' bread(s) half price in your basket</div>');
+			$('.updatedAlert').replaceWith(`<div class="updatedAlert alert alert-info fade in"> You have ${discountMilkNumber} free milk(s) and ${discountBreadNumber} bread(s) half price in your basket</div>`);
 		} else {
 
-			$('.updatedAlert').replaceWith('<div class="updatedAlert alert alert-warning fade in"> Buy at least 3 milks or 2 butters if you wish to enjoy our offer !</div>');
+			$('.updatedAlert').replaceWith(`<div class="updatedAlert alert alert-warning fade in"> Buy at least 3 milks or 2 butters if you wish to enjoy our offer !</div>`);
 		}
 
 	}
@@ -325,7 +326,7 @@ $(function () {
 
 	$('header a').on('click', function (e) {
 		e.preventDefault();
-		var hash = this.hash;
+		let hash = this.hash;
 
 		$('html, body').animate({
 			scrollTop: $(this.hash).offset().top
