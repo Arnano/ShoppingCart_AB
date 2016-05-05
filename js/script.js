@@ -88,10 +88,10 @@ $(function () {
 	function addToBasket(shopCart, theProduct) {
 
 		shopCart.find("ul").append('<li data-id="' + theProduct.attr("data-id") + '" class="form-group row">' + 
-			'<div class="col-xs-4 col-sm-3">' +
-								   '<input class="count form-control input-sm" value="1" type="number" min="1" step="1" style=" vertical-align: middle;">' + '</div>' + '<span class="name col-xs-2 col-sm-2" style=" vertical-align: middle;">' + theProduct.find("h3").html() + '</span>' + '<span class="price col-xs-1 col-sm-1" style=" vertical-align: middle;">' + theProduct.find("h4 span:eq(1)").html() + '</span>' + '<span class="col-xs-6 col-sm-4" style=" vertical-align: middle;">&pound; / per unit</span>' + '<button type="button" class="delete btn btn-default btn-sm btn-circle pull-right"><i class="glyphicon glyphicon-minus"></i></button>'
-								  
-								   			  
+								   '<div class="col-xs-5 col-sm-4">' +
+								   '<input class="count form-control input-sm" value="1" type="number" min="1" step="1" style=" vertical-align: middle;">' + '</div>' + '<span class="name col-xs-2" style=" vertical-align: middle;">' + theProduct.find("h3").html() + '</span>' + '<span class="price hidden-xs col-sm-1" style=" vertical-align: middle;">' + theProduct.find("h4 span:eq(1)").html() + '</span>' + '<span class="hidden-xs col-sm-3" style=" vertical-align: middle;">&pound;/U </span>' + '<button type="button" class="delete btn btn-default btn-xs btn-circle pull-right"><i class="glyphicon glyphicon-minus"></i></button>'
+
+
 								  );
 
 
@@ -194,7 +194,7 @@ $(function () {
 		const OFFER_MILK = 4,
 			  OFFER_BUTTER = 2;
 
-		let discountMilkNumber,
+		var discountMilkNumber,
 			discountBreadNumber,
 			numberMilk = parseInt($('li[data-id="1"] .count').val()),
 			numberButter = parseInt($('li[data-id="2"] .count').val()),
@@ -326,7 +326,7 @@ $(function () {
 
 	$('header a').on('click', function (e) {
 		e.preventDefault();
-		let hash = this.hash;
+		var hash = this.hash;
 
 		$('html, body').animate({
 			scrollTop: $(this.hash).offset().top

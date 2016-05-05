@@ -34,12 +34,12 @@
 			reviews:[
 				{
 					note : 8,
-					body : 'This milk is extremely good. I will keep buying it and enjoying it as for the price the quality is awesome. I recommend this product to everybody.',
+					body : 'This milk is extremely good. I will keep buying it and enjoying it as for the price the quality is awesome. I recommend this product.',
 					author : 'arnaud.bourdillon@yahoo.fr'
 				},
 				{
 					note : 6,
-					body : 'I wasn\'t so convinced with this milk. The taste is not that great and the quantity remains poor for the price',
+					body : 'This milk was not very tasty. The quantity remains poor for the price',
 					author : 'a.c.bourdillon@cranfield.ac.uk'
 				}
 			]
@@ -52,12 +52,12 @@
 			reviews:[
 				{
 					note : 8,
-					body : 'This butter is extremely good. I will keep buying it and enjoying it as for the price the quality is awesome. I recommend this product to everybody.',
+					body : 'This butter is extremely good. I will keep buying it and enjoying it as for the price the quality is awesome. I recommend this product.',
 					author : 'arnaud.bourdillon@yahoo.fr'
 				},
 				{
 					note : 6,
-					body : 'I wasn\'t so convinced with this butter. The taste is not that great and the quantity remains poor for the price',
+					body : 'This butter was not very tasty. The quantity remains poor for the price',
 					author : 'a.c.bourdillon@cranfield.ac.uk'
 				}
 			]
@@ -70,12 +70,12 @@
 			reviews:[
 				{
 					note : 8,
-					body : 'This bread is extremely good. I will keep buying it and enjoying it as for the price the quality is awesome. I recommend this product to everybody.',
+					body : 'This bread is extremely good. I will keep buying it and enjoying it as for the price the quality is awesome. I recommend this product.',
 					author : 'arnaud.bourdillon@yahoo.fr'
 				},
 				{
 					note : 6,
-					body : 'I wasn\'t so convinced with this bread. The taste is not that great and the quantity remains poor for the price',
+					body : 'This bread was not very tasty. The quantity remains poor for the price',
 					author : 'a.c.bourdillon@cranfield.ac.uk'
 				}
 			]

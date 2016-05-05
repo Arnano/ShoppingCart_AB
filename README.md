@@ -1,7 +1,7 @@
 # Arnaud Bourdillon.
 
    Drag and drop shopping cart.
-   W3C validated, cross browser checked, responsive page. 
+   W3C validated, cross browser checked (firefox, chrome, safari), responsive page. 
    
    
 

@@ -38,7 +38,7 @@
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
 					<li>
-						<a href="#mainTitle"> <i class="fa fa-gift fa-fw" aria-hidden="true"></i> Our offers </a>
+						<a href="#mainTitle"> <i class="fa fa-gift fa-fw" aria-hidden="true"></i> Offers </a>
 					</li>
 					<li>
 						<a href="#mainSection"> <i class="fa fa-shopping-basket fa-fw" aria-hidden="true"></i> Your basket </a>
@@ -47,14 +47,14 @@
 						<a href="#reviewSection"> <i class="fa fa-share-alt fa-fw" aria-hidden="true"></i> Customer reviews </a>
 					</li>
 					<li>
-						<a href="#theFooter"> <i class="fa fa-user fa-fw" aria-hidden="true"></i> Contact details </a>
+						<a href="#theFooter"> <i class="fa fa-user fa-fw" aria-hidden="true"></i> Contacts </a>
 					</li>
 				</ul>
 			</div>
 		</nav>
 
 
-		<div class="jumbotron row col-sm-12" id="mainTitle">
+		<div class="jumbotron row col-md-12" id="mainTitle">
 			<h1> Your online shopping cart </h1>
 			<p> Don't miss out on today's exclusive offer </p>
 		</div>
@@ -88,27 +88,29 @@
 
 	<div class="jumbotron row" id="mainSection">
 
-		<section id="product" class="cols-xs-12 col-sm-7">
-			<h2> Available products</h2>
+		<h2> Drag items toward your basket !</h2>
+
+		<section id="product" class="cols-xs-12 col-md-7">
+			<h2> Available products </h2>
 			<hr>
 
 			<div class="row">
-				<ul class="clear col-xs-12 col-sm-12">
-					<li data-id="1" class="col-xs-4 col-sm-4">
+				<ul class="clear col-xs-12 col-md-12">
+					<li data-id="1" class="col-xs-4 col-md-4">
 						<a href="">
 							<img class="img-responsive img-rounded" src="images/Milk.jpg" alt="Milk bottle">
 							<h3>Milk</h3>
 							<h4><span>&pound;</span> <span>1.15</span></h4>
 						</a>
 					</li>
-					<li data-id="2" class="col-xs-4 col-sm-4">
+					<li data-id="2" class="col-xs-4 col-md-4">
 						<a href="">
 							<img class="img-responsive img-rounded" src="images/Butter.jpg" alt="Butter">
 							<h3>Butter</h3>
 							<h4><span>&pound;</span><span>0.80</span></h4>
 						</a>
 					</li>
-					<li data-id="3" class="col-xs-4 col-sm-4">
+					<li data-id="3" class="col-xs-4 col-md-4">
 						<a href="">
 							<img class="img-responsive img-rounded" src="images/Bread.jpg" alt="Bread">
 							<h3>Bread</h3>
@@ -118,35 +120,32 @@
 				</ul>
 			</div>
 
-			<div class="row hidden-xs col-sm-12 divDrag">
-				<h3>
-				Drag items toward the basket to buy them ! <span class="glyphicon glyphicon-share fa-fw"></span>
-			</h3>
-			</div>
-
 		</section>
 
 		<!-- Aside: Basket
 		======================================================================================================= -->
 
-		<aside id="sidebar" class="col-sm-5">
-			<h2> Your basket <i class="fa fa-shopping-basket fa-fw pull-left" aria-hidden="true"></i></h2>
+		<aside id="sidebar" class="col-md-5">
+			<h2> Your basket <i class="fa fa-shopping-basket fa-fw pull-left" aria-hidden="true"></i>
+				<button type="button" id="help" class="btn btn-sm btn-default btn-circle pull-right" data-toggle="tooltip" data-placement="bottom" title="To checkout enter a positive integer in each field !">
+					<i class="fa fa-question"></i>
+				</button>
+			</h2>
 			<hr>
 
-			<div class="basket col-sm-12">
-				<div class="basket_list col-sm-12">
+
+			<div class="basket col-md-12">
+				<div class="basket_list col-md-12">
 					<ul>
 					</ul>
 				</div>
 
-				<div class="col-sm-12">
-					<button type="button" id="checkout" class="btn btn-sm btn-primary col-sm-offset-1 col-sm-3" data-toggle="modal" data-target="#toCheckout"> Checkout </button>
+				<div class="col-md-12" id="buttonBasket">
+				
+					<button type="button" id="checkout" class="btn btn-sm btn-default" data-toggle="modal" data-target="#toCheckout"> <i class="fa fa-check-square-o pull-left fa-lg" aria-hidden="true"></i> <span>Checkout</span> </button>
 
-					<button type="reset" id="clear" class="btn btn-sm btn-warning col-sm-offset-1 col-sm-3 col-sm-offset-1">Clear</button>
+					<button type="reset" id="clear" class="btn btn-sm btn-default"> <i class="fa fa-trash-o pull-left fa-lg" aria-hidden="true"></i> <span> Empty basket </span></button>
 
-					<button type="button" id="help" class="btn btn-sm btn-success col-sm-offset-1 col-sm-3" data-toggle="tooltip" data-placement="bottom" title="To checkout enter a positive integer in each field !">
-						Need help ?
-					</button>
 				</div>
 			</div>
 		</aside>
@@ -173,14 +172,14 @@
 
 
 				<div class="panel row" data-ng-show="panel.isSelected(1)">
-					<blockquote class="col-sm-8">
+					<blockquote class="col-md-8">
 						<br>
 						<strong>{{product.name}} </strong><em class="pull-right"> {{product.price | currency:'£'}} </em>
 						<br> {{product.description}}
 						<br> <small class="pull-right">Wikipedia <i class="fa fa-wikipedia-w fa-fw" aria-hidden="true"></i>
 						</small>
 					</blockquote>
-					<p class="col-sm-4">
+					<p class="col-md-4">
 						<br>
 						<img class="img-responsive img-rounded" src="javascript:void(0)" alt="MilkImages" data-ng-src="{{product.images}}" />
 					</p>
@@ -188,7 +187,7 @@
 
 				<div class="panel row" data-ng-show="panel.isSelected(2)">
 
-					<ul class="col-sm-8">
+					<ul class="col-md-8">
 						<li data-ng-repeat="review in product.reviews">
 							<blockquote>
 								<br>
@@ -199,18 +198,18 @@
 					</ul>
 
 
-					<p class="col-sm-4">
+					<p class="col-md-4">
 						<br>
 						<img class="img-responsive img-rounded" src="javascript:void(0)" alt="MilkImages" data-ng-src="{{product.images}}" />
 					</p>
 
 
-					<form name="reviewForm" data-ng-controller="ReviewController as reviewCtrl" data-ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)" class="col-sm-12" novalidate>
+					<form name="reviewForm" data-ng-controller="ReviewController as reviewCtrl" data-ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)" class="col-md-12" novalidate>
 
 						<!--  Live Preview -->
 						<blockquote>
 							<strong>{{reviewCtrl.review.note}}</strong> {{reviewCtrl.review.body}}
-							<cite class="clearfix">-{{reviewCtrl.review.author}} <!--on <date> {{review.createdOn | date}} </date>--></cite>
+							<cite class="clearfix">-{{reviewCtrl.review.author}}</cite>
 						</blockquote>
 
 						<!--  Review Form -->
@@ -240,7 +239,7 @@
 						</fieldset>
 
 						<fieldset class="form-group">
-							<input type="submit" class="btn btn-primary btn-sm pull-right" value="Submit Review" />
+							<input type="submit" class="btn btn-default btn-sm pull-right" value="Submit Review" />
 						</fieldset>
 
 					</form>
@@ -270,10 +269,10 @@
 						<thead>
 							<tr>
 								<th>Product</th>
-								<th>Quantity</th>
-								<th>Unit price</th>
+								<th>#</th>
+								<th>&pound;/U</th>
 								<th>Sub total</th>
-								<th>Sub total (discounted)</th>
+								<th>Discounted</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -325,12 +324,12 @@
 					<p id="totalAll">
 						<span class="pull-left"> <strong>Amount to pay: </strong> </span> <span> </span>
 						<br>
-						<span class="pull-left"> <strong>Today you saved </strong> </span> <span> </span>
+						<span class="pull-left"> <strong>Today you saved: </strong> </span> <span> </span>
 						<br>
 					</p>
 
 					<button type="button" class="btn btn-default" data-dismiss="modal" id="reloadPage">Proceed to payment</button>
-					<button type="button" class="btn btn-warning" data-dismiss="modal">Update basket</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Update basket</button>
 				</div>
 			</div>
 
@@ -341,9 +340,9 @@
 	======================================================================================================= -->
 
 	<footer class="jumbotron row" id="theFooter">
-	<hr>
+		<hr>
 		<div class="col-xs-12" id="iconsFooter">
-		
+
 			<span class="fa-stack fa-lg" data-toggle="tooltip" data-placement="bottom" title="https://github.com/Arnano/">
 				<i class="fa fa-circle fa-stack-2x icon-background"></i>
 				<i class="fa fa-github fa-stack-1x"></i>
@@ -368,17 +367,14 @@
 				<i class="fa fa-circle fa-stack-2x icon-background"></i>
 				<i class="fa fa-yahoo fa-stack-1x"></i>
 			</span>
-			
+
 		</div>
-		
+
 		<span class="col-xs-12" id="spanFoot">
 			<small>Copyright &copy; 2016. All right reserved. Arnaud Bourdillon </small>
 		</span>
-		
-		
 
 
-		
 	</footer>
 
 	<!-- Scripts

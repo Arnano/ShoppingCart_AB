@@ -3,7 +3,7 @@ $(function () {
 	const PRICE_DIS_MILK = 1.15,
 		  PRICE_DIS_BREAD = 1.00;
 
-	let findMilk,
+	var findMilk,
 		findButter,
 		findBread,
 		discountMilkNumber = 0,
@@ -43,7 +43,7 @@ $(function () {
 	// ================================================================================================================
 
 	function findProduct(name, product) {
-		for (let i = 0, thisLength = product.length; i < thisLength; i++) {
+		for (var i = 0, thisLength = product.length; i < thisLength; i++) {
 			if (product[i].id === name) {
 				return product[i];
 			}
@@ -52,9 +52,9 @@ $(function () {
 
 	function addToCart(products, name, price) {
 		
-		let theProducts = products.product;
+		var theProducts = products.product;
 		
-		for (let i = 0, theLength = products.product.length; i < theLength; i++) {		
+		for (var i = 0, theLength = products.product.length; i < theLength; i++) {		
 			if (theProducts[i].id === name) {
 				theProducts[i].quantity += 1;
 				return; // So that we don't push items if they exist.
@@ -74,7 +74,7 @@ $(function () {
 		const OFFER_MILK = 4,
 			  OFFER_BUTTER = 2;
 		
-		let isMilk = false,
+		var isMilk = false,
 			isButter = false,
 			isBread = false,
 			theProducts = products.product,
@@ -82,7 +82,7 @@ $(function () {
 
 		// Permits to check if product is present
 		
-		for (let i = 0; i < theLength; i++) {
+		for (var i = 0; i < theLength; i++) {
 			if (theProducts[i].id === "Milk") {
 				isMilk = true;
 			} else if (theProducts[i].id === "Butter") {
@@ -144,24 +144,11 @@ $(function () {
 		}
 	}
 
-	// === Function to clear all items from the basket
-
-	function emptyBasket() {
-
-		for (let i = 0, theLength = products.product.length; i < theLength; i++) {
-			delete products.product[i];
-		}
-
-		sum = 0;
-		sumDiscounted = 0;
-		savings = 0;
-	}
-
 	// ============================================= Main events ========================================================
 	// ==================================================================================================================
 
 	$('.addCart').on('click', function () {
-		let itemName = $(this).parent().find('h3').html(),
+		var itemName = $(this).parent().find('h3').html(),
 			itemPrice = $(this).parent().find('h4 span:eq(1)').html(),
 			roundedSum,
 			roundedSumDiscounted;
@@ -170,6 +157,7 @@ $(function () {
 
 		addToCart(products, itemName, itemPrice);
 		checkDiscount();
+		
 		sum += parseFloat(itemPrice);
 		roundedSum = Math.round(sum * 1e2) / 1e2;
 
@@ -181,7 +169,6 @@ $(function () {
 
 		sumDiscounted = roundedSum - (discountMilkNumber * PRICE_DIS_MILK + discountBreadNumber * PRICE_DIS_BREAD / 2);
 		roundedSumDiscounted = Math.round(sumDiscounted * 1e2) / 1e2;
-		
 		savings = Math.round((roundedSum - roundedSumDiscounted) * 1e2) / 1e2;
 
 		$('#resTot p:eq(0) span').replaceWith(`<span class="pull-right"> &pound;  ${roundedSum} </span>`);
@@ -193,7 +180,7 @@ $(function () {
 	
 	$('header a').on('click', function (e) {
 		e.preventDefault();
-		let hash = this.hash;
+		var hash = this.hash;
 
 		$('html, body').animate({
 			scrollTop: $(this.hash).offset().top
@@ -202,7 +189,6 @@ $(function () {
 		});
 	});
 	
-	$('[data-toggle="tooltip"]').tooltip()
-
+	$('[data-toggle="tooltip"]').tooltip();
 
 });
